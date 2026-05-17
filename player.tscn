@@ -572,3 +572,5 @@ shape = SubResource("CapsuleShape2D_onrkg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 scale = Vector2(4.42022, 3.06486)
 shape = SubResource("CapsuleShape2D_i3pqv")
+
+[node name="Camera2D" type="Camera2D" parent="."]

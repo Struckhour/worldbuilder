@@ -50,11 +50,11 @@ const MAZE_OFFSET := Vector2i(8, 0)
 var maze := []
 
 
-func _ready():
-	randomize()
-	build_field()
-	generate_maze()
-	draw_maze()
+#func _ready():
+	#randomize()
+	#build_field()
+	#generate_maze()
+	#draw_maze()
 
 
 func build_field() -> void:
