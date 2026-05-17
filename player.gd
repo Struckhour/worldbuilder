@@ -66,19 +66,19 @@ func position_attack_hitbox(direction: String) -> void:
 	match direction:
 		"left":
 			attack_hitbox.position = Vector2(-8, 0)
-			attack_hitbox.rotation_degrees = 90
+			attack_hitbox.rotation_degrees = 0
 
 		"right":
 			attack_hitbox.position = Vector2(8, 0)
-			attack_hitbox.rotation_degrees = 90
+			attack_hitbox.rotation_degrees = 0
 
 		"up":
 			attack_hitbox.position = Vector2(0, -8)
-			attack_hitbox.rotation_degrees = 0
+			attack_hitbox.rotation_degrees = 90
 
 		"down":
 			attack_hitbox.position = Vector2(0, 8)
-			attack_hitbox.rotation_degrees = 0
+			attack_hitbox.rotation_degrees = 90
 			
 func start_attack(direction: String) -> void:
 	attacking = true
