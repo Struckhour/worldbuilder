@@ -3,6 +3,8 @@ extends CharacterBody2D
 @export var speed := 100.0
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var attack_hitbox: Area2D = $AttackHitbox
+@onready var attack_shape: CollisionShape2D = $AttackHitbox/CollisionShape2D
 
 var facing := "down"
 var attacking := false
@@ -60,19 +62,39 @@ func handle_attack() -> void:
 	elif Input.is_action_just_pressed("attackdown"):
 		start_attack("down")
 
+func position_attack_hitbox(direction: String) -> void:
+	match direction:
+		"left":
+			attack_hitbox.position = Vector2(-8, 0)
+			attack_hitbox.rotation_degrees = 90
 
+		"right":
+			attack_hitbox.position = Vector2(8, 0)
+			attack_hitbox.rotation_degrees = 90
+
+		"up":
+			attack_hitbox.position = Vector2(0, -8)
+			attack_hitbox.rotation_degrees = 0
+
+		"down":
+			attack_hitbox.position = Vector2(0, 8)
+			attack_hitbox.rotation_degrees = 0
+			
 func start_attack(direction: String) -> void:
 	attacking = true
 	attack_direction = direction
 	facing = direction
 
+	position_attack_hitbox(direction)
+
+	attack_shape.disabled = false
 	anim.play("attack" + attack_direction)
 
 
 func _on_animation_finished() -> void:
 	if anim.animation.begins_with("attack"):
 		attacking = false
-
+		attack_shape.disabled = true
 		if velocity.length() > 0:
 			anim.play("walk" + facing)
 		else:
