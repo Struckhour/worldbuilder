@@ -1,8 +1,34 @@
 extends Node2D
 
-@onready var world: TileMapLayer = $"../world_tileset"
+@onready var ground: TileMapLayer = $"../GroundLayer"
+@onready var decorations: TileMapLayer = $"../DecorationLayer"
+@onready var fence: TileMapLayer = $"../FenceLayer"
 
 const SOURCE_ID := 0
+
+const FIELD_WIDTH := 50
+const FIELD_HEIGHT := 30
+
+const GRASS_TILES := [
+	Vector2i(0, 0),
+	Vector2i(5, 9),
+	Vector2i(5, 10),
+	Vector2i(7, 9),
+	Vector2i(8, 9),
+	Vector2i(7, 10),
+	Vector2i(8, 10)
+
+]
+
+const FLOWER_TILES := [
+	Vector2i(0, 8),
+	Vector2i(1, 8),
+	Vector2i(3, 11),
+	Vector2i(2, 12),
+	Vector2i(3, 12)
+]
+
+const FLOWER_CHANCE := 0.06
 
 const FENCE_L_END := Vector2i(0, 19)
 const FENCE_R_END := Vector2i(1, 19)
@@ -20,14 +46,31 @@ const FENCE_BR := Vector2i(3, 18)
 const MAZE_WIDTH := 31
 const MAZE_HEIGHT := 21
 const MAZE_OFFSET := Vector2i(8, 0)
+
 var maze := []
 
 
 func _ready():
 	randomize()
+	build_field()
 	generate_maze()
 	draw_maze()
 
+
+func build_field() -> void:
+	ground.clear()
+	decorations.clear()
+
+	for y in range(FIELD_HEIGHT):
+		for x in range(FIELD_WIDTH):
+			var cell := Vector2i(x, y)
+			var grass_tile: Vector2i = GRASS_TILES.pick_random()
+
+			ground.set_cell(cell, SOURCE_ID, grass_tile)
+
+			if randf() < FLOWER_CHANCE:
+				var flower_tile: Vector2i = FLOWER_TILES.pick_random()
+				decorations.set_cell(cell, SOURCE_ID, flower_tile)
 
 
 func generate_maze() -> void:
@@ -36,12 +79,11 @@ func generate_maze() -> void:
 	for y in range(MAZE_HEIGHT):
 		var row := []
 		for x in range(MAZE_WIDTH):
-			row.append(1) # 1 = fence/wall, 0 = open path
+			row.append(1)
 		maze.append(row)
 
 	carve_from(Vector2i(1, 1))
 
-	# entrance and exit
 	maze[1][0] = 0
 	maze[1][1] = 0
 
@@ -74,8 +116,9 @@ func carve_from(cell: Vector2i) -> void:
 			maze[between.y][between.x] = 0
 			carve_from(next_cell)
 
+
 func draw_maze() -> void:
-	world.clear()
+	fence.clear()
 
 	for y in range(MAZE_HEIGHT):
 		for x in range(MAZE_WIDTH):
@@ -84,8 +127,9 @@ func draw_maze() -> void:
 
 
 func draw_fence_tile(cell: Vector2i) -> void:
-	var x := cell.x
-	var y := cell.y
+	var local_cell := cell - MAZE_OFFSET
+	var x := local_cell.x
+	var y := local_cell.y
 
 	var up := is_wall(x, y - 1)
 	var down := is_wall(x, y + 1)
@@ -126,4 +170,4 @@ func is_wall(x: int, y: int) -> bool:
 
 
 func set_fence(cell: Vector2i, atlas_coords: Vector2i) -> void:
-	world.set_cell(cell, SOURCE_ID, atlas_coords)
+	fence.set_cell(cell, SOURCE_ID, atlas_coords)
