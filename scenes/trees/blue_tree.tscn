@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cienv1bd70fqw"]
+
+[ext_resource type="Texture2D" uid="uid://b068spcfb75xa" path="res://assets/ForgottenMemories/Trees.png" id="1_2owqn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8okwt"]
+size = Vector2(16, 15.9772)
+
+[node name="BlueTree" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, -53)
+texture = ExtResource("1_2owqn")
+region_enabled = true
+region_rect = Rect2(148, 538.5, 129, 144)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(3.57628e-07, -6)
+rotation = 1.5708
+scale = Vector2(1, 1.37696)
+shape = SubResource("RectangleShape2D_8okwt")

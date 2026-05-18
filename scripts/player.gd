@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed := 300.0
+@export var speed := 150.0
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_hitbox: Area2D = $AttackHitbox
@@ -9,12 +9,16 @@ extends CharacterBody2D
 var facing := "down"
 var attacking := false
 var attack_direction := "down"
+const ATTACK_OFFSET := 10
 
 func _ready():
 	anim.animation_finished.connect(_on_animation_finished)
+	attack_shape.disabled = true
+	attack_hitbox.monitoring = true
+	attack_hitbox.monitorable = true
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	handle_movement()
 	handle_attack()
 	update_animation()
@@ -65,19 +69,19 @@ func handle_attack() -> void:
 func position_attack_hitbox(direction: String) -> void:
 	match direction:
 		"left":
-			attack_hitbox.position = Vector2(-8, 0)
+			attack_hitbox.position = Vector2(-ATTACK_OFFSET, -9)
 			attack_hitbox.rotation_degrees = 0
 
 		"right":
-			attack_hitbox.position = Vector2(8, 0)
+			attack_hitbox.position = Vector2(ATTACK_OFFSET, -9)
 			attack_hitbox.rotation_degrees = 0
 
 		"up":
-			attack_hitbox.position = Vector2(0, -8)
+			attack_hitbox.position = Vector2(0, -ATTACK_OFFSET-9)
 			attack_hitbox.rotation_degrees = 90
 
 		"down":
-			attack_hitbox.position = Vector2(0, 8)
+			attack_hitbox.position = Vector2(0, ATTACK_OFFSET-9)
 			attack_hitbox.rotation_degrees = 90
 			
 func start_attack(direction: String) -> void:

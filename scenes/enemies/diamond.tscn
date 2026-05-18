@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxh4ge1jhfldi"]
+
+[ext_resource type="Texture2D" uid="uid://cfjahkwk7ha5q" path="res://assets/gfx/objects.png" id="1_gm3ix"]
+[ext_resource type="Script" uid="uid://neu4wn705y4c" path="res://scripts/diamond.gd" id="1_uyjhv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uyjhv"]
+size = Vector2(5.65685, 5.65685)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_di621"]
+size = Vector2(6, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyjhv"]
+atlas = ExtResource("1_gm3ix")
+region = Rect2(176, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_di621"]
+atlas = ExtResource("1_gm3ix")
+region = Rect2(192, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsrll"]
+atlas = ExtResource("1_gm3ix")
+region = Rect2(208, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4oyn"]
+atlas = ExtResource("1_gm3ix")
+region = Rect2(224, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_58ryh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyjhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_di621")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsrll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4oyn")
+}],
+"loop": false,
+"name": &"death",
+"speed": 15.0
+}]
+
+[node name="Diamond" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_uyjhv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gm3ix")
+region_enabled = true
+region_rect = Rect2(195.539, 52.7294, 7.9727, 7.29705)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1.19209e-07)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_uyjhv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_di621")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_58ryh")
+animation = &"death"
+frame = 3
+frame_progress = 1.0

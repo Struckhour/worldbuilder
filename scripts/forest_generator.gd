@@ -2,17 +2,37 @@ extends Node2D
 
 @onready var ground: TileMapLayer = $"../GroundLayer"
 @onready var decorations: TileMapLayer = $"../DecorationLayer"
-@onready var forest_layer: TileMapLayer = $"../FenceLayer"
+@onready var fence_layer: TileMapLayer = $"../FenceLayer"
+
 
 const SOURCE_ID := 0
 
-const WORLD_WIDTH := 70
-const WORLD_HEIGHT := 45
+var WORLD_WIDTH: int:
+	get:
+		return GameArea.width_tiles()
+
+var WORLD_HEIGHT: int:
+	get:
+		return GameArea.height_tiles()
 
 const FLOWER_CHANCE := 0.05
 const FOREST_ZONE_MEADOW := 0
 const FOREST_ZONE_DENSE := 1
 const FOREST_ZONE_PEPPER := 2
+
+const FENCE := {
+	"horizontal": Vector2i(4, 17),
+	"vertical": Vector2i(4, 18),
+
+	"top_left": Vector2i(2, 17),
+	"top_right": Vector2i(3, 17),
+	"bottom_left": Vector2i(2, 18),
+	"bottom_right": Vector2i(3, 18)
+}
+
+
+
+
 const GRASS := {
 	"plain": Vector2i(0, 0),
 	"alt_1": Vector2i(5, 9),
@@ -54,9 +74,71 @@ func _ready() -> void:
 	randomize()
 	build_grass()
 	build_flowers()
-	build_forest_grid()
-	draw_forest()
+	draw_fence()
+	#build_forest_grid()
+	#draw_forest()
 
+func draw_fence() -> void:
+	fence_layer.clear()
+
+	var left := GameArea.PLAY_AREA_TILES.position.x
+	var top := GameArea.PLAY_AREA_TILES.position.y
+
+	var right := GameArea.PLAY_AREA_TILES.end.x - 1
+	var bottom := GameArea.PLAY_AREA_TILES.end.y - 1
+
+	# Top + bottom
+	for x in range(left + 1, right):
+		fence_layer.set_cell(
+			Vector2i(x, top),
+			SOURCE_ID,
+			FENCE["horizontal"]
+		)
+
+		fence_layer.set_cell(
+			Vector2i(x, bottom),
+			SOURCE_ID,
+			FENCE["horizontal"]
+		)
+
+	# Left + right
+	for y in range(top + 1, bottom):
+		fence_layer.set_cell(
+			Vector2i(left, y),
+			SOURCE_ID,
+			FENCE["vertical"]
+		)
+
+		fence_layer.set_cell(
+			Vector2i(right, y),
+			SOURCE_ID,
+			FENCE["vertical"]
+		)
+
+	# Corners
+	fence_layer.set_cell(
+		Vector2i(left, top),
+		SOURCE_ID,
+		FENCE["top_left"]
+	)
+
+	fence_layer.set_cell(
+		Vector2i(right, top),
+		SOURCE_ID,
+		FENCE["top_right"]
+	)
+
+	fence_layer.set_cell(
+		Vector2i(left, bottom),
+		SOURCE_ID,
+		FENCE["bottom_left"]
+	)
+
+	fence_layer.set_cell(
+		Vector2i(right, bottom),
+		SOURCE_ID,
+		FENCE["bottom_right"]
+	)
 
 func build_grass() -> void:
 	ground.clear()
@@ -144,11 +226,26 @@ func fill_one_tile_gaps() -> void:
 			elif up and down:
 				forest_grid[y][x] = true
 
+func get_largest_region_index(regions: Array) -> int:
+	var largest_index := 0
+	var largest_area := 0
+
+	for i in range(regions.size()):
+		var rect: Rect2i = regions[i]
+		var area: int = rect.size.x * rect.size.y
+
+		if area > largest_area:
+			largest_area = area
+			largest_index = i
+
+	return largest_index
+
 func build_forest_regions(area: Rect2i, target_count: int) -> Array:
+	
 	var regions: Array = [area]
 
 	while regions.size() < target_count:
-		var index := randi_range(0, regions.size() - 1)
+		var index := get_largest_region_index(regions)
 		var rect: Rect2i = regions[index]
 
 		var can_split_vertical := rect.size.x >= 18
@@ -162,7 +259,12 @@ func build_forest_regions(area: Rect2i, target_count: int) -> Array:
 		var split_vertical := false
 
 		if can_split_vertical and can_split_horizontal:
-			split_vertical = randf() < 0.5
+			if rect.size.x > rect.size.y * 1.4:
+				split_vertical = true
+			elif rect.size.y > rect.size.x * 1.4:
+				split_vertical = false
+			else:
+				split_vertical = randf() < 0.5
 		elif can_split_vertical:
 			split_vertical = true
 		else:
@@ -342,9 +444,12 @@ func generate_forest(width: int, height: int) -> void:
 	add_forest_rect(width - 4, 0, width - 1, height - 1)
 
 	# 2. Split interior into random density regions
+	var interior_area: int = (width - 8) * (height - 8)
+	var target_region_count: int = max(8, int(interior_area / 800))
+
 	var regions := build_forest_regions(
 		Rect2i(4, 4, width - 8, height - 8),
-		8
+		target_region_count
 	)
 
 	# 3. Fill each density region according to its type
@@ -364,11 +469,13 @@ func generate_forest(width: int, height: int) -> void:
 func choose_forest_zone_type() -> int:
 	var roll := randf()
 
-	if roll < 0.2:
+	if roll < 0.1:
+		print("meadow")
 		return FOREST_ZONE_MEADOW
-	elif roll < 0.7:
+	elif roll < 0.6:
+		print("pepper")
 		return FOREST_ZONE_PEPPER
-
+	print("dense")
 	return FOREST_ZONE_DENSE
 
 func fill_meadow_region(rect: Rect2i) -> void:
@@ -409,6 +516,10 @@ func add_pepper_tree(top_left: Vector2i, tree_size: Vector2i) -> void:
 			set_forest(x, y, true)
 
 func fill_pepper_forest_region(rect: Rect2i) -> void:
+	if rect.size.x < 8 or rect.size.y < 8:
+		return
+
+	var margin := 3
 	var area: int = rect.size.x * rect.size.y
 	var target_tree_count: int = max(8, int(area / 14))
 	var attempts: int = target_tree_count * 8
@@ -428,8 +539,8 @@ func fill_pepper_forest_region(rect: Rect2i) -> void:
 		var tree_size: Vector2i = size_options.pick_random()
 
 		var top_left := Vector2i(
-			randi_range(rect.position.x, rect.position.x + rect.size.x - tree_size.x),
-			randi_range(rect.position.y, rect.position.y + rect.size.y - tree_size.y)
+			randi_range(rect.position.x + margin, rect.position.x + rect.size.x - tree_size.x - margin),
+			randi_range(rect.position.y + margin, rect.position.y + rect.size.y - tree_size.y - margin)
 		)
 
 		if can_place_pepper_tree(top_left, tree_size, 2):
@@ -488,14 +599,14 @@ func set_forest(x: int, y: int, value: bool) -> void:
 
 
 func draw_forest() -> void:
-	forest_layer.clear()
+	fence_layer.clear()
 
 	for y in range(WORLD_HEIGHT):
 		for x in range(WORLD_WIDTH):
 			if forest_grid[y][x]:
 				var cell := Vector2i(x, y)
 				var tile := get_forest_tile(x, y)
-				forest_layer.set_cell(cell, SOURCE_ID, tile)
+				fence_layer.set_cell(cell, SOURCE_ID, tile)
 
 
 func get_forest_tile(x: int, y: int) -> Vector2i:
