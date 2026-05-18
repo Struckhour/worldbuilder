@@ -38,7 +38,7 @@ func place_random_tree(pos: Vector2) -> void:
 
 	var scale_factor := randf_range(0.9, 1.1)
 	tree.scale = Vector2(scale_factor, scale_factor)
-
+	tree.add_to_group("trees")
 	get_parent().add_child.call_deferred(tree)
 
 func place_tree_at_world_position(pos: Vector2) -> void:
@@ -46,7 +46,7 @@ func place_tree_at_world_position(pos: Vector2) -> void:
 	var tree := tree_scene.instantiate()
 
 	tree.global_position = pos
-
+	tree.add_to_group("trees")
 
 	get_parent().add_child.call_deferred(tree)
 

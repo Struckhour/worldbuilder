@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://bsrxpmpt3vglj"]
+[gd_scene load_steps=15 format=4 uid="uid://bsrxpmpt3vglj"]
 
 [ext_resource type="Texture2D" uid="uid://dvspt5nu5toyx" path="res://assets/gfx/Overworld.png" id="1_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b0ncrhqbhd6h0" path="res://scenes/player.tscn" id="2_tipki"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://clclsdp7ak6xi" path="res://scripts/forest_generator.gd" id="4_choun"]
 [ext_resource type="PackedScene" uid="uid://cxh4ge1jhfldi" path="res://scenes/enemies/diamond.tscn" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://chwbommlrwy4m" path="res://scripts/enemy_spawner.gd" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://cfiry3b46yeys" path="res://scenes/HUD.tscn" id="7_tipki"]
 [ext_resource type="Script" uid="uid://o1sapbh76a58" path="res://scripts/tree_generator.gd" id="7_trceg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
@@ -3289,6 +3290,8 @@ position = Vector2(63, 53)
 
 [node name="Diamond2" parent="." instance=ExtResource("6_tefeu")]
 position = Vector2(155, 25)
+
+[node name="Hud" parent="." instance=ExtResource("7_tipki")]
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 position = Vector2(155, 25)

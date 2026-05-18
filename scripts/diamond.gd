@@ -15,6 +15,7 @@ var phase_b := 0.0
 var drift_dir := Vector2.ZERO
 func _ready() -> void:
 	$Area2D.area_entered.connect(_on_area_entered)
+	$Area2D.body_entered.connect(_on_body_entered)
 	anim.animation_finished.connect(_on_animation_finished)
 
 	center = global_position
@@ -22,7 +23,7 @@ func _ready() -> void:
 	phase_a = randf_range(0.0, TAU)
 	phase_b = randf_range(0.0, TAU)
 	drift_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-
+	
 
 func _on_area_entered(area: Area2D) -> void:
 	if dead:
@@ -31,6 +32,12 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.name == "AttackHitbox":
 		die()
 
+func _on_body_entered(body: Node2D) -> void:
+	if dead:
+		return
+
+	if body.has_method("take_damage"):
+		body.take_damage(1)
 
 func die() -> void:
 	dead = true

@@ -5,11 +5,13 @@ extends CharacterBody2D
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_hitbox: Area2D = $AttackHitbox
 @onready var attack_shape: CollisionShape2D = $AttackHitbox/CollisionShape2D
+@export var max_health := 20
 
 var facing := "down"
 var attacking := false
 var attack_direction := "down"
 const ATTACK_OFFSET := 10
+const FIREBLAST_SCENE := preload("res://scenes/fireblast.tscn")
 
 func _ready():
 	anim.animation_finished.connect(_on_animation_finished)
@@ -23,6 +25,51 @@ func _physics_process(_delta):
 	handle_attack()
 	update_animation()
 
+
+var current_health := max_health
+var invincible := false
+
+func take_damage(amount: int) -> void:
+	if invincible:
+		return
+
+	current_health = max(current_health - amount, 0)
+
+	var hud := get_tree().get_first_node_in_group("hud")
+
+	if hud:
+		hud.set_health(current_health)
+
+	invincible = true
+	await get_tree().create_timer(0.75).timeout
+	invincible = false
+
+	if current_health <= 0:
+		die()
+
+func die() -> void:
+	print("player dead")
+
+func direction_string_to_vector(direction: String) -> Vector2:
+	match direction:
+		"left":
+			return Vector2.LEFT
+		"right":
+			return Vector2.RIGHT
+		"up":
+			return Vector2.UP
+		"down":
+			return Vector2.DOWN
+		_:
+			return Vector2.DOWN
+
+func shoot_fireblast() -> void:
+	var fireblast := FIREBLAST_SCENE.instantiate()
+
+	fireblast.global_position = attack_hitbox.global_position
+	fireblast.direction = direction_string_to_vector(attack_direction)
+
+	get_parent().add_child(fireblast)
 
 func handle_movement() -> void:
 	var x_input := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -93,7 +140,7 @@ func start_attack(direction: String) -> void:
 
 	attack_shape.disabled = false
 	anim.play("attack" + attack_direction)
-
+	shoot_fireblast()
 
 func _on_animation_finished() -> void:
 	if anim.animation.begins_with("attack"):

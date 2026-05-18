@@ -1,0 +1,42 @@
+extends Area2D
+
+@export var speed := 350.0
+@export var lifetime := 1.5
+
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
+var direction := Vector2.DOWN
+var impacted := false
+
+func _ready() -> void:
+	anim.play("default")
+	rotation = Vector2.DOWN.angle_to(direction)
+
+	body_entered.connect(_on_body_entered)
+
+	await get_tree().create_timer(lifetime).timeout
+	if not impacted:
+		queue_free()
+
+func _physics_process(delta: float) -> void:
+	if impacted:
+		return
+
+	global_position += direction * speed * delta
+
+func _on_body_entered(body: Node) -> void:
+	if impacted:
+		return
+
+	if body.is_in_group("trees") or body.get_parent().is_in_group("trees"):
+		impact()
+
+func impact() -> void:
+	impacted = true
+	collision_shape.set_deferred("disabled", true)
+
+	anim.play("burnout")
+	await anim.animation_finished
+
+	queue_free()
