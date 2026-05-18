@@ -9,6 +9,9 @@ const TREE_SCENES := [
 	preload("res://scenes/trees/maple_tree.tscn")
 ]
 
+const FLAG_SCENE := preload("res://scenes/doodads/waving_flag.tscn")
+const FLAG_COUNT := 8
+
 func _ready() -> void:
 	print("TreeGenerator is running")
 
@@ -18,6 +21,9 @@ func _ready() -> void:
 		var pos := random_tree_position()
 		place_random_tree(pos)
 
+	for i in range(FLAG_COUNT):
+		var pos := random_tree_position()
+		place_flag(pos)
 func random_tree_position() -> Vector2:
 	var padding_tiles := 2
 
@@ -29,6 +35,14 @@ func random_tree_position() -> Vector2:
 	)
 
 	return GameArea.tile_to_world(cell)
+
+func place_flag(pos: Vector2) -> void:
+	var flag := FLAG_SCENE.instantiate()
+
+	flag.global_position = pos
+	var anim := flag.get_node("AnimatedSprite2D")
+	anim.play("default")
+	get_parent().add_child.call_deferred(flag)
 
 func place_random_tree(pos: Vector2) -> void:
 	var tree_scene: PackedScene = TREE_SCENES.pick_random()

@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://cfpcxn62nacxj"]
+
+[ext_resource type="Texture2D" uid="uid://dvspt5nu5toyx" path="res://assets/gfx/Overworld.png" id="1_bwynf"]
+[ext_resource type="Script" uid="uid://csf33ht0bd0yu" path="res://scripts/waving_flag.gd" id="1_ceuj1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ceuj1"]
+atlas = ExtResource("1_bwynf")
+region = Rect2(48, 464, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pd7f2"]
+atlas = ExtResource("1_bwynf")
+region = Rect2(80, 464, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmmxv"]
+atlas = ExtResource("1_bwynf")
+region = Rect2(112, 464, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2stor"]
+atlas = ExtResource("1_bwynf")
+region = Rect2(144, 464, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27vt5"]
+atlas = ExtResource("1_bwynf")
+region = Rect2(176, 464, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t0rop"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ceuj1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pd7f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmmxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2stor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27vt5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwynf"]
+size = Vector2(4, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ceuj1"]
+size = Vector2(4, 8)
+
+[node name="WavingFlag" type="Node2D" groups=["trees"]]
+script = ExtResource("1_ceuj1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, -71)
+sprite_frames = SubResource("SpriteFrames_t0rop")
+frame_progress = 0.840889
+
+[node name="FlagBase" type="StaticBody2D" parent="."]
+position = Vector2(-1, -14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FlagBase"]
+position = Vector2(1, 10)
+shape = SubResource("RectangleShape2D_bwynf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -14)
+texture = ExtResource("1_bwynf")
+region_enabled = true
+region_rect = Rect2(48.1483, 490.184, 13.7106, 29.8152)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-1, -42)
+texture = ExtResource("1_bwynf")
+region_enabled = true
+region_rect = Rect2(48.1483, 490.184, 13.7106, 26.9379)
+
+[node name="FlagPole" type="Area2D" parent="."]
+collision_layer = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FlagPole"]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_ceuj1")
