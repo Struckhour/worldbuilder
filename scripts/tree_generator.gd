@@ -11,6 +11,10 @@ const TREE_SCENES := [
 
 const FLAG_SCENE := preload("res://scenes/doodads/waving_flag.tscn")
 const FLAG_COUNT := 8
+const ALIEN_SCENE := preload("res://scenes/enemies/alien.tscn")
+const ALIEN_COUNT := 12
+const ALIEN_SPAWN_ATTEMPTS := 200
+
 
 func _ready() -> void:
 	print("TreeGenerator is running")
@@ -24,6 +28,39 @@ func _ready() -> void:
 	for i in range(FLAG_COUNT):
 		var pos := random_tree_position()
 		place_flag(pos)
+	for i in range(ALIEN_COUNT):
+		place_random_alien()
+
+func place_random_alien() -> void:
+	for attempt in range(ALIEN_SPAWN_ATTEMPTS):
+		var pos := random_tree_position()
+
+		if not position_has_tree(pos):
+			var alien := ALIEN_SCENE.instantiate()
+			alien.global_position = pos
+			get_parent().add_child.call_deferred(alien)
+			return
+
+	print("Could not find open spot for alien")
+
+func position_has_tree(pos: Vector2) -> bool:
+	var space := get_world_2d().direct_space_state
+
+	var query := PhysicsPointQueryParameters2D.new()
+	query.position = pos
+	query.collide_with_bodies = true
+	query.collide_with_areas = false
+
+	var hits := space.intersect_point(query, 8)
+
+	for hit in hits:
+		var collider : Node2D = hit.collider
+
+		if collider.is_in_group("trees") or collider.get_parent().is_in_group("trees"):
+			return true
+
+	return false
+
 func random_tree_position() -> Vector2:
 	var padding_tiles := 2
 

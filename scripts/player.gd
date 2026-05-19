@@ -7,11 +7,19 @@ extends CharacterBody2D
 @onready var attack_shape: CollisionShape2D = $AttackHitbox/CollisionShape2D
 @export var max_health := 20
 
+var spinning := false
 var facing := "down"
 var attacking := false
 var attack_direction := "down"
 const ATTACK_OFFSET := 10
 const FIREBLAST_SCENE := preload("res://scenes/fireblast.tscn")
+const FIREBALL_PEACE_COST := 5
+const SWORD_PEACE_COST := 5
+const MIN_PEACE_TO_SHOOT := 75
+const PEACE_REGEN_PER_SECOND := 5.0
+
+var peace := 100.0
+
 
 func _ready():
 	anim.animation_finished.connect(_on_animation_finished)
@@ -20,11 +28,45 @@ func _ready():
 	attack_hitbox.monitorable = true
 
 
-func _physics_process(_delta):
+func _physics_process(delta):
+	regenerate_peace(delta)
+
 	handle_movement()
 	handle_attack()
+	handle_spin()
 	update_animation()
 
+func spend_peace(amount: float) -> void:
+	var old_peace := peace
+
+	peace = max(peace - amount, 0.0)
+
+	if old_peace > 0 and peace == 0:
+		take_damage(1) # quarter heart
+
+	var hud := get_tree().get_first_node_in_group("hud")
+	if hud:
+		hud.set_peace(roundi(peace))
+
+func regenerate_peace(delta: float) -> void:
+	peace = min(peace + PEACE_REGEN_PER_SECOND * delta, 100.0)
+
+	var hud := get_tree().get_first_node_in_group("hud")
+	if hud:
+		hud.set_peace(roundi(peace))
+
+func handle_spin() -> void:
+	if attacking or spinning:
+		return
+
+	if Input.is_action_just_pressed("spin"):
+		start_spin(facing)
+
+func start_spin(direction: String) -> void:
+	spinning = true
+	facing = direction
+
+	anim.play("spin" + direction)
 
 var current_health := max_health
 var invincible := false
@@ -64,6 +106,11 @@ func direction_string_to_vector(direction: String) -> Vector2:
 			return Vector2.DOWN
 
 func shoot_fireblast() -> void:
+	if peace < MIN_PEACE_TO_SHOOT:
+		return
+
+	spend_peace(FIREBALL_PEACE_COST)
+
 	var fireblast := FIREBLAST_SCENE.instantiate()
 
 	fireblast.global_position = attack_hitbox.global_position
@@ -101,17 +148,12 @@ func update_facing(x_input: float, y_input: float) -> void:
 
 
 func handle_attack() -> void:
-	if attacking:
+	if attacking or spinning:
 		return
 
-	if Input.is_action_just_pressed("attackleft"):
-		start_attack("left")
-	elif Input.is_action_just_pressed("attackright"):
-		start_attack("right")
-	elif Input.is_action_just_pressed("attackup"):
-		start_attack("up")
-	elif Input.is_action_just_pressed("attackdown"):
-		start_attack("down")
+	if Input.is_action_just_pressed("attack"):
+		spend_peace(SWORD_PEACE_COST)
+		start_attack(facing)
 
 func position_attack_hitbox(direction: String) -> void:
 	match direction:
@@ -146,16 +188,23 @@ func _on_animation_finished() -> void:
 	if anim.animation.begins_with("attack"):
 		attacking = false
 		attack_shape.disabled = true
-		if velocity.length() > 0:
-			anim.play("walk" + facing)
-		else:
-			anim.stop()
+
+	elif anim.animation.begins_with("spin"):
+		spinning = false
+
+	else:
+		return
+
+	if velocity.length() > 0:
+		anim.play("walk" + facing)
+	else:
+		anim.stop()
 
 
 func update_animation() -> void:
 	# Attack animation overrides walk animation,
 	# but movement still continues because handle_movement keeps running.
-	if attacking:
+	if attacking or spinning:
 		return
 
 	if velocity.length() == 0:

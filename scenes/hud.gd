@@ -21,6 +21,10 @@ var current_health := MAX_HEALTH
 var heart_sprites: Array[Sprite2D] = []
 var heart_textures: Array[Texture2D] = []
 
+var peace := 100
+var peace_label: Label
+
+
 func _ready() -> void:
 	await get_tree().process_frame
 	var sheet: Texture2D = preload("res://assets/gfx/objects.png")
@@ -46,8 +50,21 @@ func _ready() -> void:
 		heart.position = HUD_POS + HUD_PADDING + Vector2(i * HEART_SPACING, 0)
 		add_child(heart)
 		heart_sprites.append(heart)
+	peace_label = Label.new()
+	peace_label.position = HUD_POS + HUD_PADDING + Vector2(MAX_HEARTS * HEART_SPACING + 8, -2)
+	peace_label.text = str(peace)
+	peace_label.add_theme_color_override("font_color", Color.WHITE)
+	add_child(peace_label)
 
 	update_hearts(current_health)
+
+func set_peace(value: int) -> void:
+	peace = clamp(value, 0, 100)
+	update_peace_label()
+
+func update_peace_label() -> void:
+	if peace_label:
+		peace_label.text = str(peace)
 
 func make_atlas_texture(sheet: Texture2D, atlas_pos: Vector2i) -> AtlasTexture:
 	var atlas := AtlasTexture.new()
