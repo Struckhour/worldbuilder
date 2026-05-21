@@ -86,7 +86,7 @@ run={
 2d_physics/layer_3="PlayerHurtbox"
 2d_physics/layer_4="EnemyBody"
 2d_physics/layer_5="EnemyHitbox"
-2d_physics/layer_6="ProjectileHeights"
+2d_physics/layer_6="EnemyHurtbox"
 
 [rendering]
 

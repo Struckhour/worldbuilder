@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var attack_shape: CollisionShape2D = $AttackHitbox/CollisionShape2D
 @export var max_health := 20
 
+
 var spinning := false
 var facing := "down"
 var attacking := false
@@ -26,7 +27,7 @@ func _ready():
 	attack_shape.disabled = true
 	attack_hitbox.monitoring = true
 	attack_hitbox.monitorable = true
-
+	$Hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 
 func _physics_process(delta):
 	regenerate_peace(delta)
@@ -35,6 +36,15 @@ func _physics_process(delta):
 	handle_attack()
 	handle_spin()
 	update_animation()
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy_hitboxes"):
+		var enemy := area.owner
+
+		if enemy:
+			take_damage(enemy.contact_damage, enemy.global_position)
+		else:
+			take_damage(1)
 
 func spend_peace(amount: float) -> void:
 	var old_peace := peace
@@ -71,19 +81,28 @@ func start_spin(direction: String) -> void:
 var current_health := max_health
 var invincible := false
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, knockback_from: Vector2 = global_position) -> void:
 	if invincible:
 		return
 
 	current_health = max(current_health - amount, 0)
 
 	var hud := get_tree().get_first_node_in_group("hud")
-
 	if hud:
 		hud.set_health(current_health)
 
+	var knockback_dir := (global_position - knockback_from).normalized()
+	velocity = knockback_dir * 300.0
+	move_and_slide()
+
 	invincible = true
-	await get_tree().create_timer(0.75).timeout
+
+	for i in 6:
+		anim.visible = false
+		await get_tree().create_timer(0.08).timeout
+		anim.visible = true
+		await get_tree().create_timer(0.08).timeout
+
 	invincible = false
 
 	if current_health <= 0:

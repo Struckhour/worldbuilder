@@ -4,25 +4,25 @@ extends CharacterBody2D
 
 var dead := false
 
-@export var move_radius := 60.0
-@export var move_speed := 1.5
-@export var drift_speed := 18.0
+@export var drift_speed := 7.0
+@export var wobble_amount := 10.0
+@export var wobble_speed := 1.2
+@export var turn_speed := 0.6
+@export var float_rotation_speed := 20.0
 
-var center := Vector2.ZERO
 var t := 0.0
-var phase_a := 0.0
-var phase_b := 0.0
 var drift_dir := Vector2.ZERO
+var base_position := Vector2.ZERO
+var phase := 0.0
 func _ready() -> void:
 	$Area2D.area_entered.connect(_on_area_entered)
 	$Area2D.body_entered.connect(_on_body_entered)
 	anim.animation_finished.connect(_on_animation_finished)
-
-	center = global_position
+	anim.play("idle")
+	base_position = global_position
 	t = randf_range(0.0, TAU)
-	phase_a = randf_range(0.0, TAU)
-	phase_b = randf_range(0.0, TAU)
-	drift_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+	phase = randf_range(0.0, TAU)
+	drift_dir = Vector2(randf_range(-1, 1), randf_range(-0.6, 0.6)).normalized()
 	
 
 func _on_area_entered(area: Area2D) -> void:
@@ -56,13 +56,19 @@ func _physics_process(delta: float) -> void:
 	if dead:
 		return
 
-	t += move_speed * delta
-	center += drift_dir * drift_speed * delta
+	t += delta
 
-	var offset := Vector2(
-		cos(t + phase_a) * move_radius + cos(t * 2.3) * move_radius * 0.35,
-		sin(t * 1.4 + phase_b) * move_radius * 0.7 + sin(t * 2.1) * move_radius * 0.25
+	# Slowly change direction over time, like air currents.
+	drift_dir = drift_dir.rotated(sin(t * 0.7 + phase) * turn_speed * delta)
+	drift_dir = drift_dir.normalized()
+
+	base_position += drift_dir * drift_speed * delta
+
+	var wobble := Vector2(
+		sin(t * wobble_speed + phase) * wobble_amount,
+		cos(t * wobble_speed * 0.8 + phase) * wobble_amount * 0.6
 	)
 
-	global_position = center + offset
-	rotation_degrees += 120.0 * delta
+	global_position = base_position + wobble
+
+	rotation_degrees += float_rotation_speed * delta

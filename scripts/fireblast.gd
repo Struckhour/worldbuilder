@@ -33,11 +33,9 @@ func _on_area_entered(area: Area2D) -> void:
 	if impacted:
 		return
 
-	var target := area.get_parent()
+	var target := area.owner
 
-	if target and target.is_in_group("enemies") and target.has_method("take_damage"):
-		print("Fireblast damaging enemy")
-		target.take_damage(1)
+	if target and target.is_in_group("enemies"):
 		impact()
 
 func _on_body_entered(body: Node) -> void:

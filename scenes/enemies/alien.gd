@@ -5,10 +5,14 @@ extends CharacterBody2D
 @export var contact_damage := 1
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hitbox: Area2D = $Area2D
 @onready var body_shape: CollisionShape2D = $enemyfeet
-@onready var hitbox_shape: CollisionShape2D = $Area2D/enemyhitbox
 @export var hurt_time := 0.25
+@onready var hurtbox: Area2D = $Hurtbox
+@onready var hurtbox_shape: CollisionShape2D = $Hurtbox/CollisionShape2D
+@onready var contact_hitbox: Area2D = $Hitbox
+@onready var contact_shape: CollisionShape2D = $Hitbox/CollisionShape2D
+
+
 
 var hurt := false
 var health := max_health
@@ -16,7 +20,8 @@ var dead := false
 var direction := Vector2.ZERO
 
 func _ready() -> void:
-	hitbox.area_entered.connect(_on_hitbox_area_entered)
+	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
+	contact_hitbox.add_to_group("enemy_hitboxes")
 	add_to_group("enemies")
 	pick_new_direction()
 
@@ -31,11 +36,28 @@ func _physics_process(_delta: float) -> void:
 
 	velocity = direction * speed
 	move_and_slide()
-
 	update_animation()
 
 	if get_slide_collision_count() > 0:
 		pick_new_direction()
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if dead:
+		return
+
+	if area.name == "AttackHitbox":
+		print("took damage from sword")
+		take_damage(1)
+		return
+
+	if area.is_in_group("player_projectiles"):
+		print("took damage from fireblast")
+
+		if area.has_method("impact"):
+			area.impact()
+
+		take_damage(1)
+		return
 
 func pick_new_direction() -> void:
 	direction = Vector2(
@@ -58,18 +80,6 @@ func update_animation() -> void:
 		else:
 			anim.play("walkup")
 
-func _on_hitbox_area_entered(area: Area2D) -> void:
-	if dead:
-		return
-
-	if area.name == "AttackHitbox":
-		print("took damage from sword")
-		take_damage(1)
-
-	if area.is_in_group("player_projectiles"):
-		print("took damage from fireblast")
-		take_damage(1)
-		area.queue_free()
 
 func take_damage(amount: int) -> void:
 	if dead or hurt:
@@ -99,9 +109,7 @@ func die() -> void:
 	dead = true
 
 	body_shape.set_deferred("disabled", true)
-	hitbox_shape.set_deferred("disabled", true)
+	hurtbox_shape.set_deferred("disabled", true)
+	contact_shape.set_deferred("disabled", true)
 
-	#anim.play("death")
-#
-	#await anim.animation_finished
 	queue_free()
