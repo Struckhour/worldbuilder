@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://but20nwcrc0xx"]
+[gd_scene load_steps=8 format=3 uid="uid://but20nwcrc0xx"]
 
+[ext_resource type="Script" uid="uid://dpjma2mt6n473" path="res://scenes/doodads/fountain.gd" id="1_j2sos"]
 [ext_resource type="Texture2D" uid="uid://dvspt5nu5toyx" path="res://assets/gfx/Overworld.png" id="1_nm0bj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j2sos"]
@@ -35,10 +36,11 @@ animations = [{
 radius = 24.0208
 
 [node name="Fountain" type="Node2D"]
+script = ExtResource("1_j2sos")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0txig")
-frame_progress = 0.665086
+frame_progress = 0.281359
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

@@ -9,39 +9,99 @@ const TREE_SCENES := [
 	preload("res://scenes/trees/maple_tree.tscn")
 ]
 
+const FOUNTAIN_SCENE := preload("res://scenes/doodads/fountain.tscn")
+const FOUNTAIN_CLEARING_RADIUS := 200.0
+const TREE_COUNT := 150
+const TREE_ATTEMPTS := 500
 const FLAG_SCENE := preload("res://scenes/doodads/waving_flag.tscn")
 const FLAG_COUNT := 8
 const ALIEN_SCENE := preload("res://scenes/enemies/alien.tscn")
 const ALIEN_COUNT := 12
 const ALIEN_SPAWN_ATTEMPTS := 200
-
+const BAT_SCENE := preload("res://scenes/enemies/bat.tscn")
+const BAT_COUNT := 12
+const BAT_SPAWN_ATTEMPTS := 200
+var fountain_position := Vector2.ZERO
 
 func _ready() -> void:
 	print("TreeGenerator is running")
 
 	randomize()
 
-	for i in range(150):
-		var pos := random_tree_position()
-		place_random_tree(pos)
+	fountain_position = get_forest_center()
+	place_fountain(fountain_position)
+
+	for i in range(TREE_COUNT):
+		place_tree_away_from_clearing()
 
 	for i in range(FLAG_COUNT):
-		var pos := random_tree_position()
+		var pos := random_open_position()
 		place_flag(pos)
+
 	for i in range(ALIEN_COUNT):
 		place_random_alien()
+		
+	for i in range(BAT_COUNT):
+		place_random_bat()
 
-func place_random_alien() -> void:
-	for attempt in range(ALIEN_SPAWN_ATTEMPTS):
+func get_forest_center() -> Vector2:
+	var area := GameArea.PLAY_AREA_TILES
+	var center_cell := Vector2i(
+		(area.position.x + area.end.x) / 2,
+		(area.position.y + area.end.y) / 2
+	)
+
+	return GameArea.tile_to_world(center_cell)
+
+
+func place_fountain(pos: Vector2) -> void:
+	var fountain := FOUNTAIN_SCENE.instantiate()
+	fountain.global_position = pos
+	get_parent().add_child.call_deferred(fountain)
+
+
+func is_in_fountain_clearing(pos: Vector2) -> bool:
+	return pos.distance_to(fountain_position) < FOUNTAIN_CLEARING_RADIUS
+
+
+func place_tree_away_from_clearing() -> void:
+	for attempt in range(TREE_ATTEMPTS):
 		var pos := random_tree_position()
 
-		if not position_has_tree(pos):
-			var alien := ALIEN_SCENE.instantiate()
-			alien.global_position = pos
-			get_parent().add_child.call_deferred(alien)
-			return
+		if is_in_fountain_clearing(pos):
+			continue
 
-	print("Could not find open spot for alien")
+		place_random_tree(pos)
+		return
+
+	print("Could not place tree away from fountain clearing")
+
+
+func random_open_position() -> Vector2:
+	for attempt in range(TREE_ATTEMPTS):
+		var pos := random_tree_position()
+
+		if is_in_fountain_clearing(pos):
+			continue
+
+		if position_has_tree(pos):
+			continue
+
+		return pos
+
+	return random_tree_position()
+
+
+func place_random_alien() -> void:
+	var alien := ALIEN_SCENE.instantiate()
+	alien.global_position = random_open_position()
+	get_parent().add_child.call_deferred(alien)
+
+func place_random_bat() -> void:
+	var bat := BAT_SCENE.instantiate()
+	bat.speed = 150
+	bat.global_position = random_open_position()
+	get_parent().add_child.call_deferred(bat)
 
 func position_has_tree(pos: Vector2) -> bool:
 	var space := get_world_2d().direct_space_state
@@ -90,6 +150,7 @@ func place_random_tree(pos: Vector2) -> void:
 	var scale_factor := randf_range(0.9, 1.1)
 	tree.scale = Vector2(scale_factor, scale_factor)
 	tree.add_to_group("trees")
+	tree.add_to_group("solid_world")
 	get_parent().add_child.call_deferred(tree)
 
 func place_tree_at_world_position(pos: Vector2) -> void:
@@ -98,6 +159,7 @@ func place_tree_at_world_position(pos: Vector2) -> void:
 
 	tree.global_position = pos
 	tree.add_to_group("trees")
+	tree.add_to_group("solid_world")
 
 	get_parent().add_child.call_deferred(tree)
 

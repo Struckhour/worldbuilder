@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://brqyh32fverxi"]
 
 [ext_resource type="Texture2D" uid="uid://221oif7vmdgt" path="res://assets/gfx/NPC_test.png" id="1_ef161"]
-[ext_resource type="Script" uid="uid://77pofk7jf4j6" path="res://scenes/enemies/alien.gd" id="1_wg2sy"]
+[ext_resource type="Script" uid="uid://77pofk7jf4j6" path="res://scripts/alien.gd" id="1_wg2sy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wg2sy"]
 atlas = ExtResource("1_ef161")
@@ -153,7 +153,7 @@ script = ExtResource("1_wg2sy")
 position = Vector2(-1, -10)
 sprite_frames = SubResource("SpriteFrames_i86i5")
 animation = &"walkright"
-frame_progress = 0.0712329
+frame_progress = 0.579399
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(-1, -10)

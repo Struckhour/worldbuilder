@@ -39,7 +39,11 @@ func _on_area_entered(area: Area2D) -> void:
 		impact()
 
 func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("trees") or body.get_parent().is_in_group("trees"):
+	if body.is_in_group("solid_world"):
+		impact()
+		return
+
+	if body.get_parent() and body.get_parent().is_in_group("solid_world"):
 		impact()
 		return
 
