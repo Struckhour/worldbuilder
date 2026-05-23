@@ -9,3 +9,13 @@ script = ExtResource("1_qpvh6")
 self_modulate = Color(0, 0, 0, 1)
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="GameOverLabel" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -16,6 +16,7 @@ const HEART_THREE_QUARTERS_POS := Vector2i(80, 0)
 const HEART_FULL_POS := Vector2i(64, 0)
 
 @onready var background: ColorRect = $Background
+@onready var game_over_label: Label = $GameOverLabel
 
 var current_health := MAX_HEALTH
 var heart_sprites: Array[Sprite2D] = []
@@ -24,8 +25,8 @@ var heart_textures: Array[Texture2D] = []
 var peace := 100
 var peace_label: Label
 
-
 func _ready() -> void:
+	game_over_label.visible = false
 	await get_tree().process_frame
 	var sheet: Texture2D = preload("res://assets/gfx/objects.png")
 
@@ -76,6 +77,11 @@ func set_health(value: int) -> void:
 	current_health = clamp(value, 0, MAX_HEALTH)
 	update_hearts(current_health)
 
+	if current_health <= 0:
+		var game_manager = get_tree().current_scene.get_node_or_null("GameManager")
+		if game_manager:
+			game_manager.trigger_game_over()
+
 func damage(amount: int) -> void:
 	set_health(current_health - amount)
 
@@ -91,3 +97,6 @@ func update_hearts(health: int) -> void:
 		)
 
 		heart_sprites[i].texture = heart_textures[heart_value]
+
+func show_game_over() -> void:
+	game_over_label.visible = true

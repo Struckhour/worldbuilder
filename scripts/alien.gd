@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var max_health := 3
 @export var speed := 40.0
-@export var contact_damage := 1
+@export var contact_damage := 4
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var body_shape: CollisionShape2D = $enemyfeet

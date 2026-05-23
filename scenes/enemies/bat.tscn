@@ -153,7 +153,7 @@ script = ExtResource("1_4k4o5")
 position = Vector2(-1, -10)
 sprite_frames = SubResource("SpriteFrames_i86i5")
 animation = &"walkright"
-frame_progress = 0.835092
+frame_progress = 0.00357374
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(-1, -10)

@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=4 uid="uid://bsrxpmpt3vglj"]
+[gd_scene load_steps=16 format=4 uid="uid://bsrxpmpt3vglj"]
 
+[ext_resource type="Script" uid="uid://bnr80dqb4qadf" path="res://scenes/game_manager.gd" id="1_85g3d"]
 [ext_resource type="Texture2D" uid="uid://dvspt5nu5toyx" path="res://assets/gfx/Overworld.png" id="1_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b0ncrhqbhd6h0" path="res://scenes/player.tscn" id="2_tipki"]
 [ext_resource type="Script" uid="uid://6x1j46qehowr" path="res://scripts/world_generator.gd" id="3_85g3d"]
@@ -9,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cfiry3b46yeys" path="res://scenes/HUD.tscn" id="7_tipki"]
 [ext_resource type="Script" uid="uid://o1sapbh76a58" path="res://scripts/tree_generator.gd" id="7_trceg"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tipki"]
 texture = ExtResource("1_o6xl0")
 0:0/0 = 0
 1:0/0 = 0
@@ -1086,7 +1087,7 @@ texture = ExtResource("1_o6xl0")
 1:35/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_1bvp3"]
-sources/0 = SubResource("TileSetAtlasSource_h2yge")
+sources/0 = SubResource("TileSetAtlasSource_tipki")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("1_o6xl0")
@@ -3260,6 +3261,9 @@ sources/0 = SubResource("TileSetAtlasSource_fj7yv")
 [node name="main" type="Node2D"]
 y_sort_enabled = true
 
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_85g3d")
+
 [node name="GroundLayer" type="TileMapLayer" parent="."]
 modulate = Color(0.758192, 0.758192, 0.758192, 1)
 tile_map_data = PackedByteArray("AAANAAcAAAAOAB0AAAAOAAgAAAARAB0AAAAPAAgAAAARAB0AAAAQAAgAAAARAB0AAAARAAgAAAAFABAAAAASAAgAAAAFABIAAAARAAkAAAAGABIAAAAQAAkAAAARAB0AAAAPAAkAAAARAB0AAAAOAAkAAAARAB0AAAANAAgAAAAOAB4AAAANAAkAAAAOAB4AAAANAAoAAAAOAB8AAAAOAAoAAAAPAB8AAAAPAAoAAAAPAB8AAAAQAAoAAAAPAB8AAAARAAoAAAAGABIAAAASAAoAAAACABAAAAARAAQAAAAMABwAAAAQAAQAAAALABwAAAAQAAUAAAAHAAkAAAARAAUAAAAIAAkAAAAPAAUAAAAIAAoAAAAPAAQAAAAIAAoAAAAQAAYAAAAFAAoAAAAUAAkAAAACABAAAAAUAAoAAAACABAAAAAUAAgAAAAFABIAAAATAAgAAAAFABIAAAATAAkAAAACABAAAAATAAoAAAACABAAAAARAAsAAAAGABIAAAARAAwAAAAFABEAAAASAAwAAAAFABMAAAATAAwAAAAFABMAAAAUAAwAAAAFABMAAAAUAAsAAAACABAAAAASAAsAAAACABAAAAATAAsAAAACABAAAAAVAAwAAAAFABMAAAAWAAwAAAAGABEAAAAVAAsAAAACABAAAAAWAAsAAAAHABIAAAAWAAoAAAAEABMAAAAWAAkAAAAEABAAAAAWAAgAAAAGABAAAAAVAAgAAAAFABIAAAAVAAkAAAACABAAAAAVAAoAAAACABAAAAASAAkAAAACABAAAAAXAAkAAAAFABIAAAAXAAoAAAAFABMAAAAXAA4AAAAHABAAAAAXAA0AAAAGABIAAAAWAA4AAAAFABIAAAAYAAkAAAADABAAAAAYAAoAAAADABMAAAAYAAgAAAAGABIAAAAYAAsAAAAFABEAAAAYAAcAAAAFABAAAAAVAAYAAAAHABAAAAAUAAYAAAAFABIAAAAVAAcAAAAGABEAAAAVAAUAAAAFABAAAAAWAAYAAAAFABMAAAAWAAUAAAAFABIAAAAUAAcAAAAFABMAAAAXAAUAAAAGABAAAAAXAAYAAAAGABEAAAATAAYAAAAHABEAAAATAAcAAAAFABEAAAATAAUAAAAGABAAAAASAAUAAAAFABAAAAASAAYAAAAFABEAAAAZAAQAAAAFABAAAAAaAAQAAAAGABAAAAAZAAUAAAAGABIAAAAZAAYAAAAFABEAAAA=")
@@ -3292,6 +3296,7 @@ position = Vector2(63, 53)
 position = Vector2(155, 25)
 
 [node name="Hud" parent="." instance=ExtResource("7_tipki")]
+process_mode = 3
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 position = Vector2(155, 25)
