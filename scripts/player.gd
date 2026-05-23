@@ -23,6 +23,7 @@ var peace := 100.0
 
 
 func _ready():
+	add_to_group("player")
 	anim.animation_finished.connect(_on_animation_finished)
 	attack_shape.disabled = true
 	attack_hitbox.monitoring = true
