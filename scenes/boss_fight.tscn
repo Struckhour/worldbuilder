@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=4 uid="uid://cjpdpfml50n2e"]
+[gd_scene load_steps=12 format=4 uid="uid://cjpdpfml50n2e"]
 
 [ext_resource type="PackedScene" uid="uid://cfiry3b46yeys" path="res://scenes/HUD.tscn" id="1_85w88"]
 [ext_resource type="Texture2D" uid="uid://dvspt5nu5toyx" path="res://assets/gfx/Overworld.png" id="1_dl1d0"]
+[ext_resource type="Script" uid="uid://dx77tacmm4a8s" path="res://scenes/boss_fight.gd" id="1_x4w2v"]
 [ext_resource type="PackedScene" uid="uid://b0ncrhqbhd6h0" path="res://scenes/player.tscn" id="2_1hapx"]
 [ext_resource type="Script" uid="uid://bnr80dqb4qadf" path="res://scenes/game_manager.gd" id="5_67f06"]
 [ext_resource type="PackedScene" uid="uid://bl6ddv7vky0v3" path="res://scenes/enemies/mage.tscn" id="6_31neg"]
+[ext_resource type="AudioStream" uid="uid://c860yvcmyquj0" path="res://assets/test_music/boss_music_sample.wav" id="6_x4w2v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1hapx"]
 texture = ExtResource("1_dl1d0")
@@ -2181,6 +2183,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_85w88")
 
 [node name="BossFight" type="Node2D"]
+script = ExtResource("1_x4w2v")
 
 [node name="Hud" parent="." instance=ExtResource("1_85w88")]
 
@@ -2202,3 +2205,6 @@ script = ExtResource("5_67f06")
 
 [node name="Mage" parent="." instance=ExtResource("6_31neg")]
 position = Vector2(400, 200)
+
+[node name="BossMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_x4w2v")

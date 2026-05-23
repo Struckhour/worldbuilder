@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var attack_hitbox: Area2D = $AttackHitbox
 @onready var attack_shape: CollisionShape2D = $AttackHitbox/CollisionShape2D
 @export var max_health := 20
-
+@onready var sword_fire: AudioStreamPlayer2D = $SwordFireAudio
 
 var spinning := false
 var facing := "down"
@@ -201,6 +201,7 @@ func start_attack(direction: String) -> void:
 	position_attack_hitbox(direction)
 
 	attack_shape.disabled = false
+	sword_fire.play()
 	anim.play("attack" + attack_direction)
 	shoot_fireblast()
 

@@ -1,9 +1,12 @@
-[gd_scene load_steps=26 format=3 uid="uid://bl6ddv7vky0v3"]
+[gd_scene load_steps=29 format=3 uid="uid://bl6ddv7vky0v3"]
 
 [ext_resource type="Script" uid="uid://dg7o45an0e6x3" path="res://scripts/mage.gd" id="1_e74jq"]
 [ext_resource type="Texture2D" uid="uid://cfjahkwk7ha5q" path="res://assets/gfx/objects.png" id="2_0gpyn"]
 [ext_resource type="Texture2D" uid="uid://bpq1aedwoa710" path="res://assets/mage_m.png" id="2_e74jq"]
 [ext_resource type="PackedScene" uid="uid://bbhys1dn3bo3e" path="res://scenes/enemy_projectile.tscn" id="2_nwq87"]
+[ext_resource type="AudioStream" uid="uid://bsx7gg2tu87rl" path="res://assets/sfx/poof.mp3" id="5_2fngf"]
+[ext_resource type="AudioStream" uid="uid://bef7n5fmwvcx5" path="res://assets/sfx/scurry.mp3" id="6_qs5cf"]
+[ext_resource type="AudioStream" uid="uid://dng11saba3jrb" path="res://assets/sfx/poof-reverse.mp3" id="7_luofg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ybdfm"]
 atlas = ExtResource("2_0gpyn")
@@ -203,3 +206,15 @@ shape = SubResource("RectangleShape2D_nkr06")
 position = Vector2(0, 2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_27d4n")
+
+[node name="PoofAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_2fngf")
+volume_db = -5.0
+
+[node name="ScurryAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_qs5cf")
+volume_db = -12.0
+
+[node name="PoofReverseAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_luofg")
+volume_db = -15.0

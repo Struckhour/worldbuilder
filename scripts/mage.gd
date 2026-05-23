@@ -23,7 +23,9 @@ extends CharacterBody2D
 @export var mage_area_top_left := Vector2(200, 50)
 @export var mage_area_bottom_right := Vector2(650, 270)
 @export var min_player_distance := 96.0
-
+@onready var poof_sfx: AudioStreamPlayer2D = $PoofAudio
+@onready var poof_reverse_sfx: AudioStreamPlayer2D = $PoofReverseAudio
+@onready var scurry_sfx: AudioStreamPlayer2D = $ScurryAudio
 var teleporting := false
 
 var hurt := false
@@ -50,6 +52,11 @@ func _physics_process(_delta: float) -> void:
 	velocity = direction * speed
 	move_and_slide()
 	update_animation()
+	if velocity.length() > 0 and not teleporting and not dead:
+		if not scurry_sfx.playing:
+			scurry_sfx.play()
+	else:
+		scurry_sfx.stop()
 
 	if get_slide_collision_count() > 0:
 		pick_new_direction()
@@ -74,6 +81,7 @@ func teleport() -> void:
 	contact_shape.set_deferred("disabled", true)
 
 	# Poof out at old location.
+	poof_sfx.play()
 	anim.play("poof")
 	await anim.animation_finished
 
@@ -88,6 +96,7 @@ func teleport() -> void:
 	pick_new_direction()
 	shoot_projectile_burst()
 	# Poof in at new location.
+	poof_reverse_sfx.play()
 	anim.play("poof")
 	await anim.animation_finished
 
