@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cjpdpfml50n2e"]
+[gd_scene load_steps=13 format=4 uid="uid://cjpdpfml50n2e"]
 
 [ext_resource type="PackedScene" uid="uid://cfiry3b46yeys" path="res://scenes/HUD.tscn" id="1_85w88"]
 [ext_resource type="Texture2D" uid="uid://dvspt5nu5toyx" path="res://assets/gfx/Overworld.png" id="1_dl1d0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bnr80dqb4qadf" path="res://scenes/game_manager.gd" id="5_67f06"]
 [ext_resource type="PackedScene" uid="uid://bl6ddv7vky0v3" path="res://scenes/enemies/mage.tscn" id="6_31neg"]
 [ext_resource type="AudioStream" uid="uid://c860yvcmyquj0" path="res://assets/test_music/boss_music_sample.wav" id="6_x4w2v"]
+[ext_resource type="PackedScene" uid="uid://conmcvr0uk07c" path="res://scenes/enemies/big_pot.tscn" id="8_2tdpq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1hapx"]
 texture = ExtResource("1_dl1d0")
@@ -2208,3 +2209,8 @@ position = Vector2(400, 200)
 
 [node name="BossMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_x4w2v")
+
+[node name="BigPot" parent="." instance=ExtResource("8_2tdpq")]
+position = Vector2(523, 154)
+
+[connection signal="died" from="Mage" to="Player" method="_on_mage_died"]

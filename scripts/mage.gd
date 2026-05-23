@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal died
 @export var max_health := 3
 @export var speed := 200.0
 @export var contact_damage := 4
@@ -207,7 +208,7 @@ func show_hurt() -> void:
 
 func die() -> void:
 	dead = true
-
+	died.emit()
 	body_shape.set_deferred("disabled", true)
 	hurtbox_shape.set_deferred("disabled", true)
 	contact_shape.set_deferred("disabled", true)

@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://conmcvr0uk07c"]
+
+[ext_resource type="Texture2D" uid="uid://cfjahkwk7ha5q" path="res://assets/gfx/objects.png" id="1_fhepu"]
+[ext_resource type="Script" uid="uid://bpd6n5t00pwbu" path="res://scenes/enemies/big_pot.gd" id="1_scms2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scms2"]
+atlas = ExtResource("1_fhepu")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y11v8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scms2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfmxk"]
+size = Vector2(48, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhepu"]
+size = Vector2(45, 54)
+
+[node name="BigPot" type="CharacterBody2D"]
+script = ExtResource("1_scms2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_y11v8")
+frame_progress = 0.898945
+
+[node name="EnemyHitbox" type="Area2D" parent="."]
+collision_layer = 41
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox"]
+position = Vector2(-5, 2)
+shape = SubResource("RectangleShape2D_cfmxk")
+
+[node name="PotBody" type="CollisionShape2D" parent="."]
+position = Vector2(-5.5, 2)
+shape = SubResource("RectangleShape2D_fhepu")

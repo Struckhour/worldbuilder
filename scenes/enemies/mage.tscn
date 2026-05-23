@@ -213,7 +213,6 @@ volume_db = -5.0
 
 [node name="ScurryAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_qs5cf")
-volume_db = -12.0
 
 [node name="PoofReverseAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_luofg")

@@ -133,13 +133,13 @@ region = Rect2(176, 64, 16, 32)
 atlas = ExtResource("1_4flbx")
 region = Rect2(192, 64, 16, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tkwlq"]
-atlas = ExtResource("1_4flbx")
-region = Rect2(216, 0, 16, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_hl5qd"]
 atlas = ExtResource("1_4flbx")
 region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkwlq"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(216, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ek41f"]
 atlas = ExtResource("1_4flbx")
@@ -501,10 +501,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tkwlq")
+"texture": SubResource("AtlasTexture_hl5qd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hl5qd")
+"texture": SubResource("AtlasTexture_tkwlq")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ek41f")
@@ -819,9 +819,8 @@ script = ExtResource("1_onrkg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -9)
 sprite_frames = SubResource("SpriteFrames_xg1a7")
-animation = &"spinright"
-frame = 11
-frame_progress = 1.0
+animation = &"celebrate"
+frame_progress = 0.608228
 
 [node name="PlayerBody" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)

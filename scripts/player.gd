@@ -19,6 +19,7 @@ const SWORD_PEACE_COST := 5
 const MIN_PEACE_TO_SHOOT := 75
 const PEACE_REGEN_PER_SECOND := 5.0
 
+var celebrating := false
 var peace := 100.0
 
 
@@ -32,7 +33,9 @@ func _ready():
 
 func _physics_process(delta):
 	regenerate_peace(delta)
-
+			
+	if celebrating:
+		return
 	handle_movement()
 	handle_attack()
 	handle_spin()
@@ -233,3 +236,12 @@ func update_animation() -> void:
 		return
 
 	anim.play("walk" + facing)
+
+
+func _on_mage_died() -> void:
+	celebrating = true
+	attacking = false
+	spinning = false
+	attack_shape.set_deferred("disabled", true)
+	velocity = Vector2.ZERO
+	anim.play("celebrate")
