@@ -1,13 +1,15 @@
-[gd_scene load_steps=13 format=4 uid="uid://cjpdpfml50n2e"]
+[gd_scene load_steps=16 format=4 uid="uid://cjpdpfml50n2e"]
 
 [ext_resource type="PackedScene" uid="uid://cfiry3b46yeys" path="res://scenes/HUD.tscn" id="1_85w88"]
 [ext_resource type="Texture2D" uid="uid://dvspt5nu5toyx" path="res://assets/gfx/Overworld.png" id="1_dl1d0"]
 [ext_resource type="Script" uid="uid://dx77tacmm4a8s" path="res://scenes/boss_fight.gd" id="1_x4w2v"]
 [ext_resource type="PackedScene" uid="uid://b0ncrhqbhd6h0" path="res://scenes/player.tscn" id="2_1hapx"]
+[ext_resource type="PackedScene" uid="uid://ccxpte5aveoe2" path="res://scenes/DialogueBox.tscn" id="3_7imqq"]
 [ext_resource type="Script" uid="uid://bnr80dqb4qadf" path="res://scenes/game_manager.gd" id="5_67f06"]
 [ext_resource type="PackedScene" uid="uid://bl6ddv7vky0v3" path="res://scenes/enemies/mage.tscn" id="6_31neg"]
 [ext_resource type="AudioStream" uid="uid://c860yvcmyquj0" path="res://assets/test_music/boss_music_sample.wav" id="6_x4w2v"]
 [ext_resource type="PackedScene" uid="uid://conmcvr0uk07c" path="res://scenes/enemies/big_pot.tscn" id="8_2tdpq"]
+[ext_resource type="Script" uid="uid://iqjvmim46l8t" path="res://scenes/boss_intro_trigger.gd" id="10_7hhev"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1hapx"]
 texture = ExtResource("1_dl1d0")
@@ -2183,10 +2185,15 @@ texture = ExtResource("1_dl1d0")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_85w88")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r7oq6"]
+size = Vector2(64, 22)
+
 [node name="BossFight" type="Node2D"]
 script = ExtResource("1_x4w2v")
 
 [node name="Hud" parent="." instance=ExtResource("1_85w88")]
+
+[node name="DialogueBox" parent="Hud" instance=ExtResource("3_7imqq")]
 
 [node name="GroundLayer" type="TileMapLayer" parent="."]
 modulate = Color(0.758192, 0.758192, 0.758192, 1)
@@ -2208,9 +2215,20 @@ script = ExtResource("5_67f06")
 position = Vector2(400, 200)
 
 [node name="BossMusic" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
 stream = ExtResource("6_x4w2v")
 
 [node name="BigPot" parent="." instance=ExtResource("8_2tdpq")]
 position = Vector2(523, 154)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="BossIntroTrigger" type="Area2D" parent="Node"]
+collision_mask = 2
+script = ExtResource("10_7hhev")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/BossIntroTrigger"]
+position = Vector2(406, 310)
+shape = SubResource("RectangleShape2D_r7oq6")
 
 [connection signal="died" from="Mage" to="Player" method="_on_mage_died"]

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal dialogue_started
+signal dialogue_finished
 @onready var portrait: TextureRect = $RootMargin/Panel/InnerMargin/Portrait
 @onready var name_label: Label = $RootMargin/Panel/InnerMargin/TextColumn/NameLabel
 @onready var dialogue_label: RichTextLabel = $RootMargin/Panel/InnerMargin/TextColumn/DialogueLabel
@@ -12,12 +14,6 @@ var page_index := 0
 func _ready() -> void:
 	hide_dialogue()
 
-	show_dialogue(
-		"Mage",
-		"You should not have come here. You should not have come here. You should not have come here. You should not have come here. You should not have come here. You should not have come here.",
-		null
-	)
-
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		return
@@ -27,6 +23,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func show_dialogue(speaker_name: String, text: String, portrait_texture: Texture2D = null) -> void:
+	dialogue_started.emit()
 	name_label.text = speaker_name
 	portrait.texture = portrait_texture
 	portrait.visible = portrait_texture != null
@@ -55,6 +52,7 @@ func _show_current_page() -> void:
 		continue_label.text = "Done"
 
 func hide_dialogue() -> void:
+	dialogue_finished.emit()
 	visible = false
 	pages.clear()
 	page_index = 0
