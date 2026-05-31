@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var attack_shape: CollisionShape2D = $AttackHitbox/CollisionShape2D
 @export var max_health := 20
 @onready var sword_fire: AudioStreamPlayer2D = $SwordFireAudio
+var nearby_interactable: Node = null
 
 var spinning := false
 var facing := "down"
@@ -39,6 +40,7 @@ func _physics_process(delta):
 	handle_movement()
 	handle_attack()
 	handle_spin()
+	handle_interaction()
 	update_animation()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
@@ -245,3 +247,18 @@ func _on_mage_died() -> void:
 	attack_shape.set_deferred("disabled", true)
 	velocity = Vector2.ZERO
 	anim.play("celebrate")
+
+func handle_interaction() -> void:
+	if Input.is_action_just_pressed("interact"):
+		if nearby_interactable and nearby_interactable.has_method("interact"):
+			nearby_interactable.interact()
+
+
+func _on_interact_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("interactables"):
+		nearby_interactable = area.get_parent()
+
+
+func _on_interact_area_area_exited(area: Area2D) -> void:
+	if area.get_parent() == nearby_interactable:
+		nearby_interactable = null

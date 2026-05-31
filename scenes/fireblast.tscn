@@ -104,7 +104,7 @@ animations = [{
 radius = 7.51665
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kagnc"]
-radius = 7.07107
+radius = 6.0
 
 [node name="Fireblast" type="Area2D"]
 collision_layer = 2

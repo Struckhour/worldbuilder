@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://b0ncrhqbhd6h0"]
+[gd_scene load_steps=99 format=3 uid="uid://b0ncrhqbhd6h0"]
 
 [ext_resource type="Texture2D" uid="uid://7mbninkkpire" path="res://assets/gfx/character.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://crvwbvn5gykem" path="res://scripts/player.gd" id="1_onrkg"]
@@ -801,7 +801,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4flbx"]
 radius = 3.0
-height = 10.0
+height = 13.3333
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 radius = 5.0
@@ -810,6 +810,9 @@ height = 16.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3pqv"]
 radius = 1.13116
 height = 5.22046
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(16.6667, 10.8333)
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(1.2, 1.2)
@@ -848,3 +851,13 @@ script = ExtResource("3_qhqgy")
 [node name="SwordFireAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_dqkch")
 volume_db = -15.0
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(1.49012e-07, -3.75)
+shape = SubResource("RectangleShape2D_dqkch")
+
+[connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_area_entered"]
+[connection signal="area_exited" from="InteractArea" to="." method="_on_interact_area_area_exited"]

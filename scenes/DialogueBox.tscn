@@ -17,17 +17,19 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -360.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_bottom = 20
 
 [node name="Panel" type="Panel" parent="RootMargin"]
 process_mode = 3
-custom_minimum_size = Vector2(440, 100)
+custom_minimum_size = Vector2(440, 130)
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_mt8gy")
 
 [node name="InnerMargin" type="MarginContainer" parent="RootMargin/Panel"]
@@ -42,7 +44,11 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 8
 
-[node name="Portrait" type="TextureRect" parent="RootMargin/Panel/InnerMargin"]
+[node name="ContentRow" type="HBoxContainer" parent="RootMargin/Panel/InnerMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Portrait" type="TextureRect" parent="RootMargin/Panel/InnerMargin/ContentRow"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -50,22 +56,23 @@ size_flags_vertical = 0
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TextColumn" type="VBoxContainer" parent="RootMargin/Panel/InnerMargin"]
+[node name="TextColumn" type="VBoxContainer" parent="RootMargin/Panel/InnerMargin/ContentRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="RootMargin/Panel/InnerMargin/ContentRow/TextColumn"]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="RootMargin/Panel/InnerMargin/TextColumn"]
-layout_mode = 2
-
-[node name="DialogueLabel" type="RichTextLabel" parent="RootMargin/Panel/InnerMargin/TextColumn"]
-custom_minimum_size = Vector2(0, 55)
+[node name="DialogueLabel" type="RichTextLabel" parent="RootMargin/Panel/InnerMargin/ContentRow/TextColumn"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 scroll_active = false
 
-[node name="ChoicesContainer" type="VBoxContainer" parent="RootMargin/Panel/InnerMargin/TextColumn"]
+[node name="ChoicesContainer" type="VBoxContainer" parent="RootMargin/Panel/InnerMargin/ContentRow/TextColumn"]
 visible = false
 layout_mode = 2
 
-[node name="ContinueLabel" type="Label" parent="RootMargin/Panel/InnerMargin/TextColumn"]
+[node name="ContinueLabel" type="Label" parent="RootMargin/Panel/InnerMargin/ContentRow/TextColumn"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Press Enter"
