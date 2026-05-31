@@ -3,7 +3,7 @@ extends Node
 const TILE_SIZE := 16
 
 const PLAY_AREA_TILES := Rect2i(
-	Vector2i(0, 0),
+	Vector2i(0, -0),
 	Vector2i(100, 100)
 )
 

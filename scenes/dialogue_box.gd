@@ -63,6 +63,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 func show_dialogue(speaker_name: String, text: String, portrait_texture: Texture2D = null) -> void:
+	blocking_world_interaction = true
+
 	name_label.text = speaker_name
 	portrait.texture = portrait_texture
 	portrait.visible = portrait_texture != null
@@ -109,6 +111,13 @@ func hide_dialogue() -> void:
 	page_index = 0
 	dialogue_finished.emit()
 
+	_release_world_interaction_later()
+	
+func _release_world_interaction_later() -> void:
+	await get_tree().process_frame
+	await get_tree().create_timer(0.15).timeout
+	blocking_world_interaction = false
+
 func paginate_text(text: String, max_chars := 75) -> Array[String]:
 	var words := text.split(" ")
 	var result: Array[String] = []
@@ -127,3 +136,8 @@ func paginate_text(text: String, max_chars := 75) -> Array[String]:
 		result.append(current)
 
 	return result
+
+var blocking_world_interaction := false
+
+func is_blocking_world_interaction() -> bool:
+	return visible or blocking_world_interaction

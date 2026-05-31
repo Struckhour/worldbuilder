@@ -13,7 +13,7 @@ atlas = ExtResource("2_jo5yd")
 region = Rect2(112, 112, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyylh"]
-size = Vector2(24, 11)
+size = Vector2(24, 9.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35e2"]
 size = Vector2(24, 6)
@@ -23,7 +23,7 @@ atlas = ExtResource("3_jo5yd")
 region = Rect2(112, 112, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stwv3"]
-size = Vector2(4, 13)
+size = Vector2(4, 13.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7uj54"]
 size = Vector2(4, 12)
@@ -45,6 +45,7 @@ position = Vector2(0, -16)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 0.75)
 shape = SubResource("RectangleShape2D_jyylh")
 
 [node name="InteractArea" type="Area2D" parent="."]
@@ -65,9 +66,9 @@ texture = SubResource("AtlasTexture_jyylh")
 position = Vector2(0, -23)
 
 [node name="LeftPostCollision" type="CollisionShape2D" parent="DoorArchBody"]
-position = Vector2(-14, 9)
+position = Vector2(-14, 9.75)
 shape = SubResource("RectangleShape2D_stwv3")
 
 [node name="RightPostCollision" type="CollisionShape2D" parent="DoorArchBody"]
-position = Vector2(14, 8)
+position = Vector2(14, 9)
 shape = SubResource("RectangleShape2D_7uj54")

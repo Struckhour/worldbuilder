@@ -34,9 +34,18 @@ func _ready():
 
 func _physics_process(delta):
 	regenerate_peace(delta)
-			
+
 	if celebrating:
 		return
+
+	var dialogue_box = get_tree().get_first_node_in_group("dialogue_box")
+	if dialogue_box and dialogue_box.has_method("is_blocking_world_interaction"):
+		if dialogue_box.is_blocking_world_interaction():
+			velocity = Vector2.ZERO
+			anim.stop()
+			move_and_slide()
+			return
+
 	handle_movement()
 	handle_attack()
 	handle_spin()
@@ -250,6 +259,12 @@ func _on_mage_died() -> void:
 
 func handle_interaction() -> void:
 	if Input.is_action_just_pressed("interact"):
+		var dialogue_box = get_tree().get_first_node_in_group("dialogue_box")
+
+		if dialogue_box and dialogue_box.has_method("is_blocking_world_interaction"):
+			if dialogue_box.is_blocking_world_interaction():
+				return
+
 		if nearby_interactable and nearby_interactable.has_method("interact"):
 			nearby_interactable.interact()
 

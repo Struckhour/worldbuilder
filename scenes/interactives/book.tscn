@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://bocnryrc5al0v"]
+
+[ext_resource type="Script" uid="uid://iwyk7wbhldpl" path="res://scenes/interactives/book.gd" id="1_lhxee"]
+[ext_resource type="Texture2D" uid="uid://cfjahkwk7ha5q" path="res://assets/gfx/objects.png" id="2_yvipm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhxee"]
+atlas = ExtResource("2_yvipm")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvx1a"]
+atlas = ExtResource("2_yvipm")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xpe4"]
+atlas = ExtResource("2_yvipm")
+region = Rect2(256, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_us0ix"]
+atlas = ExtResource("2_yvipm")
+region = Rect2(272, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87la8"]
+atlas = ExtResource("2_yvipm")
+region = Rect2(288, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1veq"]
+atlas = ExtResource("2_yvipm")
+region = Rect2(304, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8o3uw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhxee")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvx1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xpe4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_us0ix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87la8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1veq")
+}],
+"loop": false,
+"name": &"open",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7krq"]
+size = Vector2(22, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lhxee"]
+size = Vector2(8, 10)
+
+[node name="Book" type="StaticBody2D"]
+script = ExtResource("1_lhxee")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8o3uw")
+animation = &"open"
+
+[node name="InteractArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(3, 6)
+shape = SubResource("RectangleShape2D_a7krq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 1)
+shape = SubResource("RectangleShape2D_lhxee")
