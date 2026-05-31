@@ -1,50 +1,50 @@
-[gd_scene load_steps=11 format=3 uid="uid://ue3vufjru33x"]
+[gd_scene load_steps=11 format=3 uid="uid://c63gg43r3b5nd"]
 
-[ext_resource type="Script" uid="uid://btujppdytoc6i" path="res://scenes/doors/dungeon_top_door.gd" id="1_xrnij"]
-[ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_jo5yd"]
-[ext_resource type="Texture2D" uid="uid://c737c64t5y8uu" path="res://assets/dungeon_arches.png" id="3_jo5yd"]
+[ext_resource type="Script" uid="uid://btujppdytoc6i" path="res://scenes/doors/dungeon_top_door.gd" id="1_acro6"]
+[ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_nbxj1"]
+[ext_resource type="Texture2D" uid="uid://c737c64t5y8uu" path="res://assets/dungeon_arches.png" id="3_tgao7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrnij"]
-atlas = ExtResource("2_jo5yd")
-region = Rect2(96, 176, 32, 32)
+atlas = ExtResource("2_nbxj1")
+region = Rect2(32, 144, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ev18s"]
-atlas = ExtResource("2_jo5yd")
-region = Rect2(112, 112, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fqkl"]
+atlas = ExtResource("2_nbxj1")
+region = Rect2(0, 144, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyylh"]
-size = Vector2(24, 11)
+size = Vector2(7, 24.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35e2"]
-size = Vector2(24, 6)
+size = Vector2(6, 23.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jyylh"]
-atlas = ExtResource("3_jo5yd")
-region = Rect2(112, 112, 32, 32)
+atlas = ExtResource("3_tgao7")
+region = Rect2(0, 144, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stwv3"]
-size = Vector2(4, 13)
+size = Vector2(16, 4.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7uj54"]
-size = Vector2(4, 12)
+size = Vector2(16, 4)
 
 [node name="DungoneBottomDoor" type="Node2D" groups=["solid_world"]]
 y_sort_enabled = true
-script = ExtResource("1_xrnij")
+script = ExtResource("1_acro6")
 closed_texture = SubResource("AtlasTexture_xrnij")
-open_texture = SubResource("AtlasTexture_ev18s")
+open_texture = SubResource("AtlasTexture_5fqkl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -6)
-texture = ExtResource("2_jo5yd")
+texture = ExtResource("2_nbxj1")
 region_enabled = true
-region_rect = Rect2(96, 176, 32, 32)
+region_rect = Rect2(32, 144, 32, 32)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(0, -16)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-10, -6)
 shape = SubResource("RectangleShape2D_jyylh")
 
 [node name="InteractArea" type="Area2D" parent="."]
@@ -52,7 +52,7 @@ position = Vector2(47, -16)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
-position = Vector2(-47, -7)
+position = Vector2(-64, 10)
 shape = SubResource("RectangleShape2D_c35e2")
 
 [node name="DoorArchSprite" type="Sprite2D" parent="."]
@@ -62,12 +62,11 @@ position = Vector2(0, -6)
 texture = SubResource("AtlasTexture_jyylh")
 
 [node name="DoorArchBody" type="StaticBody2D" parent="."]
-position = Vector2(0, -23)
 
 [node name="LeftPostCollision" type="CollisionShape2D" parent="DoorArchBody"]
-position = Vector2(-14, 9)
+position = Vector2(-6, 8)
 shape = SubResource("RectangleShape2D_stwv3")
 
 [node name="RightPostCollision" type="CollisionShape2D" parent="DoorArchBody"]
-position = Vector2(14, 8)
+position = Vector2(-6, -20)
 shape = SubResource("RectangleShape2D_7uj54")
