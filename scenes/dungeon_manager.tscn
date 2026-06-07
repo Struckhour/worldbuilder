@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnmg3fu4vdlom"]
+
+[ext_resource type="Script" uid="uid://nwg5605kfvrl" path="res://scenes/dungeon_manager.gd" id="1_0bt5h"]
+[ext_resource type="PackedScene" uid="uid://bjnfgrpooh1l8" path="res://scenes/dungeon_rooms/dungeon_room_1.tscn" id="1_p14j5"]
+[ext_resource type="PackedScene" uid="uid://b0ncrhqbhd6h0" path="res://scenes/player.tscn" id="2_kwti5"]
+
+[node name="DungeonManager" type="Node2D"]
+script = ExtResource("1_0bt5h")
+
+[node name="CurrentRoom" type="Node2D" parent="."]
+
+[node name="DungeonRoom1" parent="CurrentRoom" instance=ExtResource("1_p14j5")]
+
+[node name="Player" parent="." instance=ExtResource("2_kwti5")]
+position = Vector2(172, 128)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="FadeLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="ColorRect" type="ColorRect" parent="FadeLayer"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -1584.0
+offset_top = -1358.0
+offset_right = -1544.0
+offset_bottom = -1318.0
+scale = Vector2(93.8865, 60.8098)
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundBlack" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="ColorRect" type="ColorRect" parent="BackgroundBlack"]
+offset_left = -564.0
+offset_top = -442.0
+offset_right = -524.0
+offset_bottom = -402.0
+scale = Vector2(44.1946, 28.0241)
+color = Color(0.0509804, 0.027451, 0.0666667, 1)

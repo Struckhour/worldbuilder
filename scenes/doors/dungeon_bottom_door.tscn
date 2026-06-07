@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://ue3vufjru33x"]
+[gd_scene load_steps=13 format=3 uid="uid://ue3vufjru33x"]
 
-[ext_resource type="Script" uid="uid://btujppdytoc6i" path="res://scenes/doors/dungeon_top_door.gd" id="1_xrnij"]
-[ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_jo5yd"]
+[ext_resource type="Script" uid="uid://btujppdytoc6i" path="res://scenes/doors/dungeon_door.gd" id="1_xrnij"]
+[ext_resource type="Texture2D" uid="uid://b0p8b2p11rwl1" path="res://assets/yellow_dungeon_open_doors.png" id="3_84p5r"]
+[ext_resource type="Texture2D" uid="uid://bgaq7li2geqoi" path="res://assets/yellow_dungeon.png" id="3_ev18s"]
 [ext_resource type="Texture2D" uid="uid://c737c64t5y8uu" path="res://assets/dungeon_arches.png" id="3_jo5yd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrnij"]
-atlas = ExtResource("2_jo5yd")
+atlas = ExtResource("3_ev18s")
 region = Rect2(96, 176, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ev18s"]
-atlas = ExtResource("2_jo5yd")
+atlas = ExtResource("3_84p5r")
 region = Rect2(112, 112, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyylh"]
@@ -28,16 +29,19 @@ size = Vector2(4, 13.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7uj54"]
 size = Vector2(4, 12)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrnij"]
+
 [node name="DungoneBottomDoor" type="Node2D" groups=["solid_world"]]
 y_sort_enabled = true
 script = ExtResource("1_xrnij")
 closed_texture = SubResource("AtlasTexture_xrnij")
 open_texture = SubResource("AtlasTexture_ev18s")
+target_room_path = "uid://bjnfgrpooh1l8"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
 position = Vector2(0, -6)
-texture = ExtResource("2_jo5yd")
+texture = ExtResource("3_ev18s")
 region_enabled = true
 region_rect = Rect2(96, 176, 32, 32)
 
@@ -72,3 +76,10 @@ shape = SubResource("RectangleShape2D_stwv3")
 [node name="RightPostCollision" type="CollisionShape2D" parent="DoorArchBody"]
 position = Vector2(14, 9)
 shape = SubResource("RectangleShape2D_7uj54")
+
+[node name="TransitionArea" type="Area2D" parent="."]
+position = Vector2(0, 4)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea"]
+shape = SubResource("RectangleShape2D_xrnij")
