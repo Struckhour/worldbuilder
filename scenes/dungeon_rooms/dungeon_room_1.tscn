@@ -1,10 +1,8 @@
-[gd_scene load_steps=25 format=4 uid="uid://bjnfgrpooh1l8"]
+[gd_scene load_steps=23 format=4 uid="uid://bjnfgrpooh1l8"]
 
-[ext_resource type="PackedScene" uid="uid://cfiry3b46yeys" path="res://scenes/HUD.tscn" id="1_0wj4k"]
 [ext_resource type="Script" uid="uid://dm0nqhfberxdq" path="res://scenes/dungeon_room_1.gd" id="1_8fala"]
 [ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="1_ubp1v"]
 [ext_resource type="PackedScene" uid="uid://bkd0wdhpdfq47" path="res://scenes/doors/dungeon_top_door.tscn" id="2_fpimf"]
-[ext_resource type="PackedScene" uid="uid://ccxpte5aveoe2" path="res://scenes/DialogueBox.tscn" id="2_hsn05"]
 [ext_resource type="PackedScene" uid="uid://ue3vufjru33x" path="res://scenes/doors/dungeon_bottom_door.tscn" id="5_fvacq"]
 [ext_resource type="Texture2D" uid="uid://bgaq7li2geqoi" path="res://assets/yellow_dungeon.png" id="5_vueis"]
 [ext_resource type="PackedScene" uid="uid://bocnryrc5al0v" path="res://scenes/interactives/book.tscn" id="6_ys5p8"]
@@ -1015,16 +1013,11 @@ atlas = ExtResource("8_etlrv")
 region = Rect2(245, 3, 12, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ym3j"]
-size = Vector2(532, 215)
+size = Vector2(644, 405)
 
 [node name="Dungeon" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_8fala")
-
-[node name="Hud" parent="." instance=ExtResource("1_0wj4k")]
-
-[node name="DialogueBox" parent="Hud" instance=ExtResource("2_hsn05")]
-visible = false
 
 [node name="GroundLayer" type="TileMapLayer" parent="."]
 scale = Vector2(2, 2)
@@ -1110,5 +1103,5 @@ position = Vector2(255, 174)
 z_index = -10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds"]
-position = Vector2(255, 95.5)
+position = Vector2(255, 110.5)
 shape = SubResource("RectangleShape2D_8ym3j")

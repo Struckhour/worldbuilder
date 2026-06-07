@@ -63,10 +63,17 @@ func open_spawn_door(spawn_name: String) -> void:
 func update_camera_bounds(room: Node2D) -> void:
 	var bounds: Rect2 = room.get_camera_bounds()
 
-	camera.limit_left = bounds.position.x
-	camera.limit_top = bounds.position.y
-	camera.limit_right = bounds.end.x
-	camera.limit_bottom = bounds.end.y
+	camera.limit_left = int(bounds.position.x)
+	camera.limit_top = int(bounds.position.y)
+	camera.limit_right = int(bounds.end.x)
+	camera.limit_bottom = int(bounds.end.y)
+
+	print("Camera bounds: ",
+		camera.limit_left, ", ",
+		camera.limit_top, ", ",
+		camera.limit_right, ", ",
+		camera.limit_bottom
+	)
 
 func freeze_player(value: bool) -> void:
 	player.set_physics_process(not value)
