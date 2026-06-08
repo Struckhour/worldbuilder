@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://cnmg3fu4vdlom"]
 
 [ext_resource type="Script" uid="uid://nwg5605kfvrl" path="res://scenes/dungeon_manager.gd" id="1_0bt5h"]
-[ext_resource type="PackedScene" uid="uid://bjnfgrpooh1l8" path="res://scenes/dungeon_rooms/dungeon_room_1.tscn" id="1_p14j5"]
 [ext_resource type="PackedScene" uid="uid://cfiry3b46yeys" path="res://scenes/HUD.tscn" id="2_b1xwr"]
 [ext_resource type="PackedScene" uid="uid://b0ncrhqbhd6h0" path="res://scenes/player.tscn" id="2_kwti5"]
 [ext_resource type="PackedScene" uid="uid://ccxpte5aveoe2" path="res://scenes/DialogueBox.tscn" id="3_pq4w1"]
+[ext_resource type="PackedScene" uid="uid://3inlfkuf63jp" path="res://scenes/dungeon_rooms/dungeon_room_2.tscn" id="4_b1xwr"]
 [ext_resource type="Script" uid="uid://cyhpos3n2wn43" path="res://scenes/camera_2d.gd" id="4_wb1x7"]
 
 [node name="DungeonManager" type="Node2D"]
@@ -17,7 +17,7 @@ visible = false
 
 [node name="CurrentRoom" type="Node2D" parent="."]
 
-[node name="DungeonRoom1" parent="CurrentRoom" instance=ExtResource("1_p14j5")]
+[node name="Dungeon" parent="CurrentRoom" instance=ExtResource("4_b1xwr")]
 
 [node name="Player" parent="." instance=ExtResource("2_kwti5")]
 position = Vector2(172, 128)

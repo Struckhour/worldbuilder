@@ -47,12 +47,3 @@ func _process(delta: float) -> void:
 	print_timer += delta
 	if print_timer >= 0.5:
 		print_timer = 0.0
-		print("---- CAMERA DEBUG ----")
-		print("target global: ", target.global_position)
-		print("camera global: ", global_position)
-		print("limits: ", limit_left, ", ", limit_top, ", ", limit_right, ", ", limit_bottom)
-		print("half_view: ", half_view)
-		print("allowed x: ", min_x, " to ", max_x)
-		print("allowed y: ", min_y, " to ", max_y)
-		print("desired: ", desired)
-		print("clamped: ", clamped)

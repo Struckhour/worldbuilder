@@ -28,8 +28,6 @@ func _physics_process(delta: float) -> void:
 	global_position += direction * speed * delta
 
 func _on_area_entered(area: Area2D) -> void:
-	print("Fireblast area entered: ", area.name, " parent: ", area.get_parent().name)
-
 	if impacted:
 		return
 
@@ -38,14 +36,11 @@ func _on_area_entered(area: Area2D) -> void:
 	if target and target.is_in_group("enemies"):
 		impact()
 
-func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("solid_world"):
-		impact()
+func _on_body_entered(body: Node2D) -> void:
+	if impacted:
 		return
 
-	if body.get_parent() and body.get_parent().is_in_group("solid_world"):
-		impact()
-		return
+	impact()
 
 func impact() -> void:
 	impacted = true

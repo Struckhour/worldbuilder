@@ -1083,7 +1083,7 @@ scale = Vector2(2, 2)
 position = Vector2(256, 204)
 scale = Vector2(2, 2)
 open_texture = SubResource("AtlasTexture_fvacq")
-target_room_path = "uid://3inlfkuf63jp"
+target_room_path = "uid://cf3uskvwscq6d"
 target_spawn_name = "FromNorth"
 
 [node name="Book" parent="." instance=ExtResource("6_ys5p8")]

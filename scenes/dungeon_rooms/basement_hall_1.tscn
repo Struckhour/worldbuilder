@@ -1,12 +1,14 @@
-[gd_scene load_steps=18 format=4 uid="uid://3inlfkuf63jp"]
+[gd_scene load_steps=22 format=4 uid="uid://cf3uskvwscq6d"]
 
-[ext_resource type="Script" uid="uid://dm0nqhfberxdq" path="res://scenes/dungeon_room_1.gd" id="1_64s5e"]
-[ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="4_uj7d8"]
-[ext_resource type="Texture2D" uid="uid://bgaq7li2geqoi" path="res://assets/yellow_dungeon.png" id="5_qn3ai"]
-[ext_resource type="PackedScene" uid="uid://bkd0wdhpdfq47" path="res://scenes/doors/dungeon_top_door.tscn" id="6_4vl6d"]
+[ext_resource type="Script" uid="uid://dm0nqhfberxdq" path="res://scenes/dungeon_room_1.gd" id="1_81omi"]
+[ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_wgyg8"]
+[ext_resource type="Texture2D" uid="uid://bgaq7li2geqoi" path="res://assets/yellow_dungeon.png" id="3_likhp"]
+[ext_resource type="PackedScene" uid="uid://bkd0wdhpdfq47" path="res://scenes/doors/dungeon_top_door.tscn" id="4_fnlqr"]
+[ext_resource type="PackedScene" uid="uid://ue3vufjru33x" path="res://scenes/doors/dungeon_bottom_door.tscn" id="5_qkquv"]
+[ext_resource type="Texture2D" uid="uid://b0p8b2p11rwl1" path="res://assets/yellow_dungeon_open_doors.png" id="6_fivb2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wj4k"]
-texture = ExtResource("4_uj7d8")
+texture = ExtResource("2_wgyg8")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -245,7 +247,7 @@ texture = ExtResource("4_uj7d8")
 17:12/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgbrb"]
-texture = ExtResource("5_qn3ai")
+texture = ExtResource("3_likhp")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -488,7 +490,7 @@ sources/0 = SubResource("TileSetAtlasSource_0wj4k")
 sources/1 = SubResource("TileSetAtlasSource_vgbrb")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c4wp1"]
-texture = ExtResource("4_uj7d8")
+texture = ExtResource("2_wgyg8")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -5.68543, -5.75548, -5.75548, -5.75548, 8, -2.69788, 8, -3.23746, -3.0576, 8, -3.23746)
 1:0/0 = 0
@@ -741,7 +743,7 @@ texture = ExtResource("4_uj7d8")
 17:12/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vueis"]
-texture = ExtResource("5_qn3ai")
+texture = ExtResource("3_likhp")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -985,39 +987,46 @@ physics_layer_1/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_c4wp1")
 sources/1 = SubResource("TileSetAtlasSource_vueis")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgbrb"]
-size = Vector2(228, 29)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewuax"]
+size = Vector2(41, 22.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_as4em"]
-size = Vector2(232, 27)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fk0i1"]
+size = Vector2(32, 27)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywjj6"]
-size = Vector2(285, 29)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_81omi"]
+size = Vector2(40, 29)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x0nu6"]
-size = Vector2(35, 182)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgyg8"]
+size = Vector2(39, 27)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ygs2"]
-size = Vector2(56, 71)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_likhp"]
+size = Vector2(35, 334)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x0nqh"]
-size = Vector2(65, 90)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fnlqr"]
+size = Vector2(35, 347)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ym3j"]
-size = Vector2(687, 338.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkquv"]
+size = Vector2(27, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvacq"]
+atlas = ExtResource("6_fivb2")
+region = Rect2(112, 112, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fivb2"]
+size = Vector2(702, 579)
 
 [node name="Dungeon" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_64s5e")
+script = ExtResource("1_81omi")
 
 [node name="GroundLayer" type="TileMapLayer" parent="."]
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAAEAAEAAQAGAAAAAAAEAAIAAQAGAAAAAAAEAAMAAQAGAAAAAAAEAAQAAQAGAAAAAAAFAAEAAQAGAAAAAAAFAAIAAQAGAAAAAAAFAAMAAQAMAAIAAAAFAAQAAQAGAAAAAAAGAAEAAQAMAAAAAAAGAAIAAQAGAAAAAAAGAAMAAQAGAAAAAAAGAAQAAQALAAMAAAAHAAEAAQAGAAAAAAAHAAIAAQAGAAAAAAAHAAMAAQAJAAIAAAAIAAEAAQAGAAAAAAAIAAIAAQAGAAAAAAAIAAMAAQAGAAAAAAAIAAQAAQAGAAAAAAAJAAEAAQAGAAAAAAAJAAIAAQAGAAAAAAAJAAMAAQAGAAAAAAAJAAQAAQAMAAEAAAAHAAQAAQAGAAAAAAAFAAAAAQABAAMAAAA=")
+tile_map_data = PackedByteArray("AAAGAAEAAQAMAAAAAAAGAAIAAQAGAAAAAAAGAAMAAQAGAAAAAAAGAAQAAQALAAMAAAAHAAEAAQAGAAAAAAAHAAIAAQAGAAAAAAAHAAMAAQAJAAIAAAAIAAEAAQALAAQAAAAIAAIAAQALAAMAAAAIAAMAAQAGAAAAAAAIAAQAAQAGAAAAAAAJAAEAAQAGAAAAAAAJAAIAAQAGAAAAAAAJAAMAAQAGAAAAAAAJAAQAAQAMAAEAAAAHAAQAAQAGAAAAAAAGAAAAAQAGAAAAAAAHAAAAAQAGAAAAAAAIAAAAAQAGAAAAAAAJAAAAAQAGAAAAAAAJAP//AQAGAAAAAAAIAP//AQAGAAAAAAAHAP//AQAMAAMAAAAGAP//AQAGAAAAAAAGAP7/AQAGAAAAAAAGAP3/AQAGAAAAAAAGAPz/AQAGAAAAAAAHAPz/AQAGAAAAAAAGAPv/AQAGAAAAAAAHAPv/AQAMAAEAAAAIAPv/AQAGAAAAAAAJAPv/AQAGAAAAAAAJAPz/AQAGAAAAAAAJAP3/AQAGAAAAAAAJAP7/AQAGAAAAAAAIAP7/AQAGAAAAAAAHAP7/AQAGAAAAAAAHAP3/AQAGAAAAAAAIAP3/AQAMAAUAAAAIAPz/AQAGAAAAAAA=")
 tile_set = SubResource("TileSet_fvacq")
 
 [node name="WallLayer" type="TileMapLayer" parent="." groups=["solid_world"]]
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAAEAAAAAQADAAAAAAAEAAEAAQACAAEAAAAEAAIAAQACAAEAAAAFAAAAAQABAAIAAAAFAAUAAQABAAAAAAAGAAAAAQAFAAEAAAAGAAUAAQABAAAAAAAJAAAAAQAFAAEAAAAJAAUAAQABAAAAAAAKAAAAAQAEAAAAAAAKAAUAAQAEAAEAAAAJAP//AAAFAAAAAAAGAP//AAAFAAAAAAAHAAUAAQABAAAAAAAIAAUAAQABAAAAAAAEAAMAAQACAAEAAAAEAAQAAQACAAEAAAAEAAUAAQADAAEAAAAKAAEAAQAAAAEAAAAKAAIAAQAAAAEAAAAKAAMAAQAAAAEAAAAKAAQAAQAAAAEAAAA=")
+tile_map_data = PackedByteArray("AAAGAAUAAQADAAEAAAAJAAUAAQAEAAEAAAAJAAQAAQAAAAEAAAAJAAMAAQADAAMAAAAJAAIAAQAEAAsAAAAJAAEAAQAAAAEAAAAJAAAAAQADAAMAAAAJAP//AQANAAsAAAAJAP7/AQADAAMAAAAJAP3/AQAAAAEAAAAJAPz/AQAEAAsAAAAJAPv/AQAAAAEAAAAGAAQAAQACAAEAAAAGAAMAAQAEAAIAAAAGAAIAAQACAAEAAAAGAAEAAQAFAAwAAAAGAAAAAQACAAEAAAAGAP//AQAEAAIAAAAGAP7/AQACAAEAAAAGAP3/AQAOAAwAAAAGAPz/AQACAAEAAAAGAPv/AQAEAAIAAAAJAPr/AQAEAAAAAAAGAPr/AQADAAAAAAAFAAMAAQADAAIAAAAKAAMAAQAEAAMAAAAFAP//AQADAAIAAAAKAAAAAQAEAAMAAAAKAP7/AQAEAAMAAAAFAPv/AQADAAIAAAAIAAMAAQANAAQAAAAIAAIAAQANAAMAAAA=")
 tile_set = SubResource("TileSet_fpimf")
 
 [node name="WallCollision" type="Node2D" parent="."]
@@ -1025,56 +1034,56 @@ tile_set = SubResource("TileSet_fpimf")
 [node name="TopWallBody" type="StaticBody2D" parent="WallCollision"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision/TopWallBody"]
-position = Vector2(118, 14.5)
-shape = SubResource("RectangleShape2D_vgbrb")
+position = Vector2(212.5, -182.25)
+shape = SubResource("RectangleShape2D_ewuax")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="WallCollision/TopWallBody"]
-position = Vector2(396, 14.5)
-shape = SubResource("RectangleShape2D_as4em")
+position = Vector2(302, -179)
+shape = SubResource("RectangleShape2D_fk0i1")
 
 [node name="BottomWallBody" type="StaticBody2D" parent="WallCollision"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision/BottomWallBody"]
-position = Vector2(146.5, 178.5)
-shape = SubResource("RectangleShape2D_ywjj6")
+position = Vector2(212, 178.5)
+shape = SubResource("RectangleShape2D_81omi")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="WallCollision/BottomWallBody"]
-position = Vector2(396, 177.5)
-shape = SubResource("RectangleShape2D_as4em")
+position = Vector2(299.5, 177.5)
+shape = SubResource("RectangleShape2D_wgyg8")
 
 [node name="LeftWallBody" type="StaticBody2D" parent="WallCollision"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision/LeftWallBody"]
-position = Vector2(137, 94)
-shape = SubResource("RectangleShape2D_x0nu6")
+position = Vector2(198, -5)
+shape = SubResource("RectangleShape2D_likhp")
 
 [node name="RightWallBody" type="StaticBody2D" parent="WallCollision"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision/RightWallBody"]
-position = Vector2(342, 98)
-shape = SubResource("RectangleShape2D_x0nu6")
+position = Vector2(315, -3.5)
+shape = SubResource("RectangleShape2D_fnlqr")
 
-[node name="WallPeninsulaBody" type="StaticBody2D" parent="WallCollision"]
+[node name="Crates" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision/WallPeninsulaBody"]
-position = Vector2(129, 60.5)
-shape = SubResource("RectangleShape2D_4ygs2")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crates"]
+position = Vector2(270.5, 104.5)
+shape = SubResource("RectangleShape2D_qkquv")
 
-[node name="BigTableBody" type="StaticBody2D" parent="WallCollision"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision/BigTableBody"]
-position = Vector2(447.5, 80)
-shape = SubResource("RectangleShape2D_x0nqh")
-
-[node name="DoorNorth" parent="." instance=ExtResource("6_4vl6d")]
-position = Vector2(256, 32)
+[node name="DoorNorth" parent="." instance=ExtResource("4_fnlqr")]
+position = Vector2(256, -160)
 scale = Vector2(2, 2)
-target_room_path = "uid://cf3uskvwscq6d"
+
+[node name="DoorSouth" parent="." instance=ExtResource("5_qkquv")]
+position = Vector2(256, 204)
+scale = Vector2(2, 2)
+open_texture = SubResource("AtlasTexture_fvacq")
+target_room_path = "uid://3inlfkuf63jp"
+target_spawn_name = "FromNorth"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
 [node name="FromNorth" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(256, 22)
+position = Vector2(255, -170)
 
 [node name="FromSouth" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(255, 174)
@@ -1083,5 +1092,5 @@ position = Vector2(255, 174)
 z_index = -10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds"]
-position = Vector2(249, 94)
-shape = SubResource("RectangleShape2D_8ym3j")
+position = Vector2(296, 23.5)
+shape = SubResource("RectangleShape2D_fivb2")
