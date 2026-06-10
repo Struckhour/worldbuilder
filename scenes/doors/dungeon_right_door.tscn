@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://c63gg43r3b5nd"]
+[gd_scene load_steps=13 format=3 uid="uid://c63gg43r3b5nd"]
 
 [ext_resource type="Script" uid="uid://btujppdytoc6i" path="res://scenes/doors/dungeon_door.gd" id="1_acro6"]
-[ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_nbxj1"]
+[ext_resource type="Texture2D" uid="uid://bgaq7li2geqoi" path="res://assets/yellow_dungeon.png" id="2_nbxj1"]
 [ext_resource type="Texture2D" uid="uid://c737c64t5y8uu" path="res://assets/dungeon_arches.png" id="3_tgao7"]
+[ext_resource type="Texture2D" uid="uid://b0p8b2p11rwl1" path="res://assets/yellow_dungeon_open_doors.png" id="3_xcnfq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrnij"]
 atlas = ExtResource("2_nbxj1")
 region = Rect2(32, 144, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5fqkl"]
-atlas = ExtResource("2_nbxj1")
+atlas = ExtResource("3_xcnfq")
 region = Rect2(0, 144, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyylh"]
@@ -28,7 +29,9 @@ size = Vector2(16, 4.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7uj54"]
 size = Vector2(16, 4)
 
-[node name="DungoneBottomDoor" type="Node2D" groups=["solid_world"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_acro6"]
+
+[node name="DungeonEastDoor" type="Node2D" groups=["solid_world"]]
 y_sort_enabled = true
 script = ExtResource("1_acro6")
 closed_texture = SubResource("AtlasTexture_xrnij")
@@ -70,3 +73,10 @@ shape = SubResource("RectangleShape2D_stwv3")
 [node name="RightPostCollision" type="CollisionShape2D" parent="DoorArchBody"]
 position = Vector2(-6, -20)
 shape = SubResource("RectangleShape2D_7uj54")
+
+[node name="TransitionArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea"]
+position = Vector2(11, -6)
+shape = SubResource("RectangleShape2D_acro6")

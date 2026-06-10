@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cfiry3b46yeys" path="res://scenes/HUD.tscn" id="2_b1xwr"]
 [ext_resource type="PackedScene" uid="uid://b0ncrhqbhd6h0" path="res://scenes/player.tscn" id="2_kwti5"]
 [ext_resource type="PackedScene" uid="uid://ccxpte5aveoe2" path="res://scenes/DialogueBox.tscn" id="3_pq4w1"]
-[ext_resource type="PackedScene" uid="uid://3inlfkuf63jp" path="res://scenes/dungeon_rooms/dungeon_room_2.tscn" id="4_b1xwr"]
+[ext_resource type="PackedScene" uid="uid://3inlfkuf63jp" path="res://scenes/dungeon_rooms/basement_room_1.tscn" id="4_b1xwr"]
 [ext_resource type="Script" uid="uid://cyhpos3n2wn43" path="res://scenes/camera_2d.gd" id="4_wb1x7"]
 
 [node name="DungeonManager" type="Node2D"]
@@ -18,9 +18,10 @@ visible = false
 [node name="CurrentRoom" type="Node2D" parent="."]
 
 [node name="Dungeon" parent="CurrentRoom" instance=ExtResource("4_b1xwr")]
+position = Vector2(42.2035, 17.0341)
 
 [node name="Player" parent="." instance=ExtResource("2_kwti5")]
-position = Vector2(172, 128)
+position = Vector2(256, 126)
 
 [node name="Camera2D" parent="Player" index="4"]
 enabled = false
