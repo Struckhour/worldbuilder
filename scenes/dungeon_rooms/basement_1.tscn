@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=4 uid="uid://3inlfkuf63jp"]
+[gd_scene load_steps=17 format=4 uid="uid://3inlfkuf63jp"]
 
 [ext_resource type="Script" uid="uid://dm0nqhfberxdq" path="res://scenes/dungeon_room_1.gd" id="1_64s5e"]
 [ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="4_uj7d8"]
+[ext_resource type="PackedScene" uid="uid://dnbk0q2u4ncux" path="res://scenes/enemies/bat.tscn" id="5_1fn3w"]
 [ext_resource type="Texture2D" uid="uid://bgaq7li2geqoi" path="res://assets/yellow_dungeon.png" id="5_qn3ai"]
 [ext_resource type="PackedScene" uid="uid://bkd0wdhpdfq47" path="res://scenes/doors/dungeon_top_door.tscn" id="6_4vl6d"]
 
@@ -1067,3 +1068,6 @@ z_index = -10
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds"]
 position = Vector2(249, 94)
 shape = SubResource("RectangleShape2D_8ym3j")
+
+[node name="Bat" parent="." instance=ExtResource("5_1fn3w")]
+position = Vector2(286, 109)

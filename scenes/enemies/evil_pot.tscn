@@ -1,0 +1,117 @@
+[gd_scene load_steps=16 format=3 uid="uid://b55g6v6f31jqo"]
+
+[ext_resource type="Texture2D" uid="uid://xt2v0tgi4ay3" path="res://assets/evil_pot.png" id="1_tusyk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s40wf"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o17kj"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_counq"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udj12"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nh72p"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ibfl"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_es7p8"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f4h4"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45nrw"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgrrh"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcfwo"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1oeg3"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w00pe"]
+atlas = ExtResource("1_tusyk")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f6ae4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s40wf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o17kj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_counq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udj12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nh72p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ibfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_es7p8")
+}],
+"loop": true,
+"name": &"bounce",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6f4h4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45nrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgrrh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcfwo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1oeg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w00pe")
+}],
+"loop": false,
+"name": &"turn",
+"speed": 3.0
+}]
+
+[node name="EvilPot" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_f6ae4")
+animation = &"turn"
+frame = 5
+frame_progress = 1.0

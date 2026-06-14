@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://cwwjqkedf7s3e"]
+[gd_scene load_steps=30 format=4 uid="uid://cwwjqkedf7s3e"]
 
 [ext_resource type="Script" uid="uid://dm0nqhfberxdq" path="res://scenes/dungeon_room_1.gd" id="1_18m03"]
 [ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_as0if"]
@@ -1026,6 +1026,12 @@ size = Vector2(4.39656, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_51m20"]
 size = Vector2(4.39656, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_18m03"]
+size = Vector2(4.39656, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_as0if"]
+size = Vector2(12.7586, 87)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_fvacq"]
 atlas = ExtResource("7_21s1s")
 region = Rect2(112, 112, 32, 32)
@@ -1044,7 +1050,7 @@ tile_set = SubResource("TileSet_fvacq")
 
 [node name="WallLayer" type="TileMapLayer" parent="." groups=["solid_world"]]
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAAAAAQAAQACAAEAAAAAAAUAAQADAAEAAAAAAAEAAQACAAEAAAABAAUAAQABAAAAAAACAAUAAQABAAAAAAADAAUAAQABAAAAAAAEAAUAAQABAAAAAAAFAAUAAQABAAAAAAAGAAUAAQABAAAAAAAJAAUAAQABAAAAAAAKAAUAAQABAAAAAAALAAUAAQABAAAAAAAMAAUAAQABAAAAAAANAAUAAQABAAAAAAAOAAUAAQABAAAAAAAPAAEAAQAAAAEAAAAPAAQAAQAAAAEAAAAPAAUAAQAEAAEAAAAAAAAAAQACAAEAAAAAAP//AQACAAEAAAAAAP7/AQACAAEAAAAPAAAAAQAAAAEAAAAPAP//AQAAAAEAAAAPAP7/AQAAAAEAAAAPAP3/AQAEAAAAAAAAAP3/AQADAAAAAAABAP3/AQABAAIAAAACAP3/AQABAAIAAAADAP3/AQABAAIAAAAEAP3/AQABAAIAAAAFAP3/AQABAAIAAAAGAP3/AQABAAIAAAAJAP3/AQABAAIAAAAKAP3/AQABAAIAAAALAP3/AQABAAIAAAAMAP3/AQABAAIAAAANAP3/AQABAAIAAAAOAP3/AQABAAIAAAAAAAIAAQACAAEAAAAAAAMAAQACAAEAAAAEAAEAAQAOAAcAAAAEAAAAAQAOAAYAAAAFAAEAAQAPAAcAAAAFAAAAAQAPAAYAAAAKAP//AQAPAAUAAAAKAAMAAQAOAAUAAAAHAP3/AQABAAIAAAAIAP3/AQABAAIAAAA=")
+tile_map_data = PackedByteArray("AAAAAAQAAQACAAEAAAAAAAUAAQADAAEAAAAAAAEAAQACAAEAAAABAAUAAQABAAAAAAACAAUAAQABAAAAAAADAAUAAQABAAAAAAAEAAUAAQABAAAAAAAFAAUAAQABAAAAAAAGAAUAAQABAAAAAAAJAAUAAQABAAAAAAAKAAUAAQABAAAAAAALAAUAAQABAAAAAAAMAAUAAQABAAAAAAANAAUAAQABAAAAAAAOAAUAAQABAAAAAAAPAAEAAQAAAAEAAAAPAAQAAQAAAAEAAAAPAAUAAQAEAAEAAAAAAAAAAQACAAEAAAAAAP//AQACAAEAAAAAAP7/AQACAAEAAAAPAAAAAQAAAAEAAAAPAP//AQAAAAEAAAAPAP7/AQAAAAEAAAAPAP3/AQAEAAAAAAAAAP3/AQADAAAAAAABAP3/AQABAAIAAAACAP3/AQABAAIAAAADAP3/AQABAAIAAAAEAP3/AQABAAIAAAAFAP3/AQABAAIAAAAGAP3/AQABAAIAAAAJAP3/AQABAAIAAAAKAP3/AQABAAIAAAALAP3/AQABAAIAAAAMAP3/AQABAAIAAAANAP3/AQABAAIAAAAOAP3/AQABAAIAAAAAAAIAAQACAAEAAAAAAAMAAQACAAEAAAAHAP3/AQABAAIAAAAIAP3/AQABAAIAAAAHAAAAAQAQAAgAAAAHAP//AQAQAAcAAAAHAP7/AQAQAAYAAAAIAP7/AQARAAYAAAAIAP//AQARAAcAAAAIAAAAAQARAAgAAAAOAP7/AQAQAAoAAAAMAP7/AQAPAAoAAAAKAP7/AQAQAAoAAAADAP7/AQAPAAoAAAABAP7/AQAQAAoAAAAFAP7/AQAQAAoAAAA=")
 tile_set = SubResource("TileSet_fpimf")
 
 [node name="WallCollision" type="Node2D" parent="."]
@@ -1092,28 +1098,38 @@ shape = SubResource("RectangleShape2D_xa4cf")
 [node name="CratesBody" type="StaticBody2D" parent="WallCollision"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision/CratesBody"]
-position = Vector2(150, 35.5)
+position = Vector2(47, -45)
 shape = SubResource("RectangleShape2D_b6ot0")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="WallCollision/CratesBody"]
-position = Vector2(336, 116)
+position = Vector2(399, -47)
 scale = Vector2(4.64, 1)
 shape = SubResource("RectangleShape2D_0u2xq")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="WallCollision/CratesBody"]
-position = Vector2(336, -13)
+position = Vector2(335, -46)
 scale = Vector2(4.64, 1)
 shape = SubResource("RectangleShape2D_1rb5q")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="WallCollision/CratesBody"]
-position = Vector2(167, 44)
+position = Vector2(176, -48)
 scale = Vector2(4.64, 1)
 shape = SubResource("RectangleShape2D_0055d")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="WallCollision/CratesBody"]
-position = Vector2(160, 30)
+position = Vector2(112, -47)
 scale = Vector2(4.64, 1)
 shape = SubResource("RectangleShape2D_51m20")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="WallCollision/CratesBody"]
+position = Vector2(464, -48)
+scale = Vector2(4.64, 1)
+shape = SubResource("RectangleShape2D_18m03")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="WallCollision/CratesBody"]
+position = Vector2(255.4, -15.5)
+scale = Vector2(4.64, 1)
+shape = SubResource("RectangleShape2D_as0if")
 
 [node name="DoorEast" parent="." instance=ExtResource("5_5i6ce")]
 position = Vector2(512, 108)
