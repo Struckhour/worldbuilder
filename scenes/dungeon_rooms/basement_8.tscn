@@ -1061,6 +1061,7 @@ shape = SubResource("RectangleShape2D_4jvjm")
 
 [node name="Mage" parent="WallCollision/TopWallBody" instance=ExtResource("4_qxuna")]
 position = Vector2(216, 121)
+scale = Vector2(2, 2)
 
 [node name="BottomWallBody" type="StaticBody2D" parent="WallCollision"]
 

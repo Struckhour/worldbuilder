@@ -1,6 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://b55g6v6f31jqo"]
+[gd_scene load_steps=17 format=3 uid="uid://b55g6v6f31jqo"]
 
 [ext_resource type="Texture2D" uid="uid://xt2v0tgi4ay3" path="res://assets/evil_pot.png" id="1_tusyk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tusyk"]
+size = Vector2(30, 33)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s40wf"]
 atlas = ExtResource("1_tusyk")
@@ -109,9 +112,11 @@ animations = [{
 [node name="EvilPot" type="CharacterBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 6.5)
+shape = SubResource("RectangleShape2D_tusyk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f6ae4")
-animation = &"turn"
+animation = &"bounce"
 frame = 5
-frame_progress = 1.0
+frame_progress = 0.390923

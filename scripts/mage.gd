@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal died
 @export var max_health := 3
-@export var speed := 200.0
+@export var speed := 150.0
 @export var contact_damage := 4
 
 @export var enemy_projectile_scene: PackedScene
@@ -21,7 +21,7 @@ signal died
 @export var teleport_attempts := 100
 @export var teleport_padding_tiles := 2
 
-@export var mage_area_top_left := Vector2(200, 50)
+@export var mage_area_top_left := Vector2(0, 0)
 @export var mage_area_bottom_right := Vector2(650, 270)
 @export var min_player_distance := 96.0
 @onready var poof_sfx: AudioStreamPlayer2D = $PoofAudio
