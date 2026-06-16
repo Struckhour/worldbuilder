@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://drtta4s6rtd6p"]
+
+[ext_resource type="Script" uid="uid://b2tmvvoeggjjb" path="res://Dialogue.gd" id="1_kp46k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oi3j2"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_758ep"]
+content_margin_left = 10.0
+content_margin_right = 12.0
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_oi3j2"]
+
+[node name="DialogueBox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 200.0
+offset_right = -610.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_kp46k")
+default_sound = "SYS_text.ogg"
+
+[node name="TextBox" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 30.0
+offset_top = 112.0
+offset_right = 1122.0
+offset_bottom = 314.0
+theme_override_font_sizes/bold_italics_font_size = 25
+theme_override_font_sizes/italics_font_size = 25
+theme_override_font_sizes/mono_font_size = 25
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_oi3j2")
+bbcode_enabled = true
+scroll_active = false
+
+[node name="NameBox" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 30.0
+offset_top = 38.0
+offset_right = 52.0
+offset_bottom = 105.0
+theme_override_font_sizes/normal_font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_758ep")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="FaceImage" type="Sprite2D" parent="."]
+position = Vector2(1056, 38)
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 128)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="FaceImage"]
+modulate = Color(0, 0, 0, 1)
+z_index = -1
+position = Vector2(0, 5.72205e-06)
+scale = Vector2(132, 132)
+mesh = SubResource("QuadMesh_oi3j2")
+
+[node name="MoveonSprite" type="Sprite2D" parent="."]
+position = Vector2(576, 317)
+
+[node name="PrintSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[node name="SoundEffectPlayer" type="AudioStreamPlayer2D" parent="."]

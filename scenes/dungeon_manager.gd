@@ -10,7 +10,7 @@ var transitioning := false
 
 func _ready() -> void:
 	add_to_group("dungeon_manager")
-
+	
 	fade_layer.get_node("ColorRect").modulate.a = 0.0
 
 	current_room = current_room_holder.get_child(0)
