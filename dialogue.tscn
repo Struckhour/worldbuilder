@@ -78,3 +78,24 @@ position = Vector2(576, 317)
 [node name="PrintSoundPlayer" type="AudioStreamPlayer2D" parent="."]
 
 [node name="SoundEffectPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[node name="ChoiceBox" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 220.0
+offset_right = 990.0
+offset_bottom = 300.0
+theme_override_constants/separation = 24
+
+[node name="Choice0" type="Label" parent="ChoiceBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 25
+
+[node name="Choice1" type="Label" parent="ChoiceBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="Choice2" type="Label" parent="ChoiceBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25

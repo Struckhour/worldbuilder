@@ -14,6 +14,10 @@ script = ExtResource("1_0bt5h")
 
 [node name="DialogueBox" parent="Hud" groups=["dialogue_box"] instance=ExtResource("3_qa6f6")]
 process_mode = 3
+default_dialogue_path = "res://dialogue/"
+default_face_path = ""
+default_sound_path = ""
+default_print_speed = 0.05
 
 [node name="CurrentRoom" type="Node2D" parent="."]
 

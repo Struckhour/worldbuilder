@@ -5,5 +5,55 @@
 		"image_path": "wizard_thumbnail.png",
 		"image_coords": "0, 0",
 		"sound_path": "SYS_text.ogg"
-	}
+	},
+	"pot_0": {
+		"text": "Hi there, Friend. Nice day to be a clay pot, wouldn't you say?---[delay=1.0] Oh wait, you're not a clay pot. You're a player.[delay=1.0] Oh...[delay=1.0]my...[delay=1.0]okay...[delay=1.0]cool.",
+		"name": "Clay Pot",
+		"image_path": "wizard_thumbnail.png",
+		"image_coords": "0, 0",
+		"sound_path": "SYS_text.ogg"
+	},
+	"pot_1": {
+		"text": "The broken clay on your hands was all the answer I needed. Today you shall pay your debt of suffering and pain to all those innocent souls you have shattered with your indifference and sadistic delight.",
+		"name": "Clay Pot",
+		"image_path": "wizard_thumbnail.png",
+		"image_coords": "0, 0",
+		"sound_path": "SYS_text.ogg"
+	},
+	"pot_choice": {
+		"name": "Angry Pot",
+		"image_path": "wizard_thumbnail.png",
+		"image_coords": "0, 0",
+		"sound_path": "SYS_text.ogg",
+		"text": "Just a...[delay=1.0]out of curiosity...[delay=1.0]as a gamer, how many pots would you say you have...[delay=1.0]accidentally...[delay=1.0]or otherwise...[delay=1.0]destroyed?[delay=1.0] Roughly?",
+		"choices": [
+			{
+				"text": "None",
+				"value": "none"
+			},
+			{
+				"text": "A few",
+				"value": "few"
+			},
+			{
+				"text": "You don't wanna know.",
+				"value": "lots"
+			},
+			
+		]
+	},
+	"pot_yes": {
+		"text": "The broken clay on your hands was all the answer I needed. Today you shall pay your debt of suffering and pain to all those whom you have shattered with indifference and delight.",
+		"name": "Clay Pot",
+		"image_path": "wizard_thumbnail.png",
+		"image_coords": "0, 0",
+		"sound_path": "SYS_text.ogg"
+	},
+	"pot_no": {
+		"text": "you answered no.",
+		"name": "Clay Pot",
+		"image_path": "wizard_thumbnail.png",
+		"image_coords": "0, 0",
+		"sound_path": "SYS_text.ogg"
+	},
 }
