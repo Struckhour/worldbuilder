@@ -1075,6 +1075,7 @@ shape = SubResource("RectangleShape2D_qkquv")
 [node name="DoorNorth" parent="." instance=ExtResource("4_fnlqr")]
 position = Vector2(256, -160)
 scale = Vector2(2, 2)
+door_id = "bh1_to_b2"
 
 [node name="DoorSouth" parent="." instance=ExtResource("5_qkquv")]
 position = Vector2(256, 204)
@@ -1082,6 +1083,7 @@ scale = Vector2(2, 2)
 open_texture = SubResource("AtlasTexture_fvacq")
 target_room_path = "uid://3inlfkuf63jp"
 target_spawn_name = "FromNorth"
+door_id = "b1_to_bh1"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -1100,6 +1102,8 @@ shape = SubResource("RectangleShape2D_fivb2")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 2
+monitoring = false
+monitorable = false
 script = ExtResource("7_fk0i1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

@@ -1073,6 +1073,7 @@ position = Vector2(0, 108)
 scale = Vector2(2, 2)
 target_room_path = "uid://cwwjqkedf7s3e"
 target_spawn_name = "FromEast"
+door_id = "b4_to_b5"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 

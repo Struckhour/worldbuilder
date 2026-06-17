@@ -1112,18 +1112,21 @@ position = Vector2(0, -64)
 scale = Vector2(2, 2)
 target_room_path = "uid://bfeffe7eshah8"
 target_spawn_name = "FromSouth1"
+door_id = "b71_to_b81"
 
 [node name="DoorNorth2" parent="." instance=ExtResource("4_4jvjm")]
 position = Vector2(256, -64)
 scale = Vector2(2, 2)
 target_room_path = "uid://bfeffe7eshah8"
 target_spawn_name = "FromSouth2"
+door_id = "b72_to_b82"
 
 [node name="DoorNorth3" parent="." instance=ExtResource("4_4jvjm")]
 position = Vector2(512, -64)
 scale = Vector2(2, 2)
 target_room_path = "uid://bfeffe7eshah8"
 target_spawn_name = "FromSouth3"
+door_id = "b73_to_b83"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 

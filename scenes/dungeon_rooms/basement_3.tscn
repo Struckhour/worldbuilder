@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://cxkwlk7avle8m"]
+[gd_scene load_steps=30 format=4 uid="uid://cxkwlk7avle8m"]
 
 [ext_resource type="Script" uid="uid://dm0nqhfberxdq" path="res://scenes/dungeon_room_1.gd" id="1_liiba"]
 [ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_s2i1k"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c63gg43r3b5nd" path="res://scenes/doors/dungeon_right_door.tscn" id="5_a2e6w"]
 [ext_resource type="PackedScene" uid="uid://ue3vufjru33x" path="res://scenes/doors/dungeon_bottom_door.tscn" id="6_ncv6r"]
 [ext_resource type="Texture2D" uid="uid://b0p8b2p11rwl1" path="res://assets/yellow_dungeon_open_doors.png" id="7_rqki1"]
+[ext_resource type="PackedScene" uid="uid://b55g6v6f31jqo" path="res://scenes/enemies/angry_pot.tscn" id="8_s2i1k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wj4k"]
 texture = ExtResource("2_s2i1k")
@@ -1120,12 +1121,14 @@ shape = SubResource("RectangleShape2D_51m20")
 position = Vector2(256, -64)
 scale = Vector2(2, 2)
 target_room_path = "uid://cwwjqkedf7s3e"
+door_id = "b3_to_b4"
 
 [node name="DoorEast" parent="." instance=ExtResource("5_a2e6w")]
 position = Vector2(512, 108)
 scale = Vector2(2, 2)
 target_room_path = "uid://bjnfgrpooh1l8"
 target_spawn_name = "FromWest"
+door_id = "b2_to_b3"
 
 [node name="DoorSouth" parent="." instance=ExtResource("6_ncv6r")]
 position = Vector2(256, 204)
@@ -1133,6 +1136,7 @@ scale = Vector2(2, 2)
 open_texture = SubResource("AtlasTexture_fvacq")
 target_room_path = "uid://dxmspkuhhaps6"
 target_spawn_name = "FromNorth"
+door_id = "b3_to_bh2"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -1154,3 +1158,7 @@ z_index = -10
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds"]
 position = Vector2(263.5, 68.5)
 shape = SubResource("RectangleShape2D_iy2xq")
+
+[node name="AngryPot" parent="." instance=ExtResource("8_s2i1k")]
+z_index = 10
+position = Vector2(254, 26)

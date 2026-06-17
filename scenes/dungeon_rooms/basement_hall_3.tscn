@@ -1064,6 +1064,7 @@ shape = SubResource("RectangleShape2D_fnlqr")
 position = Vector2(256, -160)
 scale = Vector2(2, 2)
 target_room_path = "uid://buypgtoc4rame"
+door_id = "b6_to_bh3"
 
 [node name="DoorSouth" parent="." instance=ExtResource("5_jcxpi")]
 position = Vector2(256, 204)
@@ -1071,6 +1072,7 @@ scale = Vector2(2, 2)
 open_texture = SubResource("AtlasTexture_fvacq")
 target_room_path = "uid://bfeffe7eshah8"
 target_spawn_name = "FromNorth"
+door_id = "bh3_to_b7"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 

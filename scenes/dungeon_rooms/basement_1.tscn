@@ -1053,6 +1053,7 @@ shape = SubResource("RectangleShape2D_x0nu6")
 position = Vector2(256, 32)
 scale = Vector2(2, 2)
 target_room_path = "uid://cf3uskvwscq6d"
+door_id = "b1_to_bh1"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 

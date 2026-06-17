@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameArea="*res://scripts/game_area.gd"
 Dlg="*res://dlg_management.gd"
+DungeonState="*res://DungeonState.gd"
 
 [display]
 
