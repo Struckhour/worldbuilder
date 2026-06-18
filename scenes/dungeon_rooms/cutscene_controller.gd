@@ -22,17 +22,13 @@ func run_sequence() -> void:
 	# First dialogue. Pauses game.
 	await dialogue.display("./test_text.json", "pot_0", [], true)
 	var answer = await dialogue.display("./test_text.json", "pot_choice", [], true)
-	print("answer: ", answer)
+	pot.play_intro_animation()
+	await pot.intro_animation_finished
 	if answer == "lots":
 		await dialogue.display("./test_text.json", "pot_yes", [], true)
 	else:
 		await dialogue.display("./test_text.json", "pot_no", [], true)
 	# Pot animation after first dialogue advances/finishes.
-	pot.play_intro_animation()
-	await pot.intro_animation_finished
-
-	# Second dialogue.
 	
-	await dialogue.display("./test_text.json", "pot_1", [], true)
 	# Start boss behavior.
 	pot.start_fight()

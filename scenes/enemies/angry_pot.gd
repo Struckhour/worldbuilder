@@ -3,8 +3,8 @@ extends CharacterBody2D
 @export var max_health := 3
 @export var move_speed := 140.0
 @export var jump_height := 48.0
-@export var jump_duration := 0.6
-@export var wait_time := 0.2
+@export var jump_duration := 0.5
+@export var wait_time := 0.05
 @export var contact_damage := 4
 
 @onready var body_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -27,16 +27,17 @@ var dead := false
 var health := max_health
 var jumping := false
 var target_position := Vector2.ZERO
-var body_offset := -25
+var hitbox_offset := -25
+var sprite_offset := -20
 
 func _ready() -> void:
 	add_to_group("enemies")
 
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 
-	body_sprite.position.y = body_offset
-	hurtbox.position.y = body_offset
-	hitbox.position.y = body_offset
+	body_sprite.position.y = sprite_offset
+	hurtbox.position.y = hitbox_offset
+	hitbox.position.y = hitbox_offset
 
 	body_sprite.play("default")
 
@@ -82,9 +83,9 @@ func do_jump() -> void:
 		global_position = start.lerp(destination, t)
 
 		var arc := sin(t * PI)
-		body_sprite.position.y = -arc * jump_height + body_offset
-		hurtbox.position.y = -arc * jump_height + body_offset
-		hitbox.position.y = -arc * jump_height + body_offset
+		body_sprite.position.y = -arc * jump_height + sprite_offset
+		hurtbox.position.y = -arc * jump_height + hitbox_offset
+		hitbox.position.y = -arc * jump_height + hitbox_offset
 
 		var shadow_amount := 1.0 - arc
 		shadow_sprite.scale = Vector2.ONE * lerp(0.55, 1.0, shadow_amount)
@@ -94,14 +95,15 @@ func do_jump() -> void:
 		await get_tree().process_frame
 
 	global_position = destination
-	body_sprite.position.y = body_offset
-	hurtbox.position.y = body_offset
-	hitbox.position.y = body_offset
+	body_sprite.position.y = sprite_offset
+	hurtbox.position.y = hitbox_offset
+	hitbox.position.y = hitbox_offset
 	shadow_sprite.scale = Vector2.ONE
 	shadow_sprite.modulate.a = 0.65
-
+	body_sprite.play("smoke_burst")
+	await body_sprite.animation_finished
 	jumping = false
-
+	
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	print("Pot hurtbox touched by area: ", area.name, " groups: ", area.get_groups())
 	if dead:
@@ -147,9 +149,11 @@ func show_hurt() -> void:
 
 func die() -> void:
 	dead = true
-
+	body_sprite.play("shatter")
+	await body_sprite.animation_finished
+	shadow_sprite.visible = false
 	body_shape.set_deferred("disabled", true)
 	hurtbox_shape.set_deferred("disabled", true)
 	contact_shape.set_deferred("disabled", true)
 
-	queue_free()
+	#queue_free()

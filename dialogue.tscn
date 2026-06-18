@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://drtta4s6rtd6p"]
+[gd_scene load_steps=6 format=3 uid="uid://drtta4s6rtd6p"]
 
 [ext_resource type="Script" uid="uid://b2tmvvoeggjjb" path="res://Dialogue.gd" id="1_kp46k"]
+[ext_resource type="Texture2D" uid="uid://lp4dpt5d1o5e" path="res://assets/right_arrow.png" id="2_oi3j2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oi3j2"]
 content_margin_left = 10.0
@@ -73,7 +74,9 @@ scale = Vector2(132, 132)
 mesh = SubResource("QuadMesh_oi3j2")
 
 [node name="MoveonSprite" type="Sprite2D" parent="."]
-position = Vector2(576, 317)
+position = Vector2(572, 284)
+scale = Vector2(3, 3)
+texture = ExtResource("2_oi3j2")
 
 [node name="PrintSoundPlayer" type="AudioStreamPlayer2D" parent="."]
 
