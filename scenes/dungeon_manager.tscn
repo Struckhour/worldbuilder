@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnmg3fu4vdlom"]
+[gd_scene load_steps=8 format=3 uid="uid://cnmg3fu4vdlom"]
 
 [ext_resource type="Script" uid="uid://nwg5605kfvrl" path="res://scenes/dungeon_manager.gd" id="1_0bt5h"]
 [ext_resource type="PackedScene" uid="uid://cfiry3b46yeys" path="res://scenes/HUD.tscn" id="2_b1xwr"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://drtta4s6rtd6p" path="res://dialogue.tscn" id="3_qa6f6"]
 [ext_resource type="PackedScene" uid="uid://byawinqf70qmf" path="res://scenes/dungeon_rooms/boss_room.tscn" id="4_b1xwr"]
 [ext_resource type="Script" uid="uid://cyhpos3n2wn43" path="res://scenes/camera_2d.gd" id="4_wb1x7"]
+[ext_resource type="Script" uid="uid://bnr80dqb4qadf" path="res://scenes/game_manager.gd" id="7_pq4w1"]
 
 [node name="DungeonManager" type="Node2D"]
 script = ExtResource("1_0bt5h")
@@ -53,5 +54,8 @@ offset_right = -524.0
 offset_bottom = -402.0
 scale = Vector2(44.1946, 28.0241)
 color = Color(0.0509804, 0.027451, 0.0666667, 1)
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("7_pq4w1")
 
 [editable path="Player"]

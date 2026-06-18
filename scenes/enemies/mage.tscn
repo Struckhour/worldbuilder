@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bl6ddv7vky0v3"]
+[gd_scene load_steps=22 format=3 uid="uid://bl6ddv7vky0v3"]
 
 [ext_resource type="Script" uid="uid://dg7o45an0e6x3" path="res://scripts/mage.gd" id="1_e74jq"]
 [ext_resource type="Texture2D" uid="uid://cfjahkwk7ha5q" path="res://assets/gfx/objects.png" id="2_0gpyn"]
@@ -7,6 +7,10 @@
 [ext_resource type="AudioStream" uid="uid://bsx7gg2tu87rl" path="res://assets/sfx/poof.mp3" id="5_2fngf"]
 [ext_resource type="AudioStream" uid="uid://bef7n5fmwvcx5" path="res://assets/sfx/scurry.mp3" id="6_qs5cf"]
 [ext_resource type="AudioStream" uid="uid://dng11saba3jrb" path="res://assets/sfx/poof-reverse.mp3" id="7_luofg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luofg"]
+atlas = ExtResource("4_luofg")
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ybdfm"]
 atlas = ExtResource("2_0gpyn")
@@ -50,6 +54,14 @@ region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i86i5"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_luofg")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ybdfm")
@@ -159,7 +171,6 @@ enemy_projectile_scene = ExtResource("2_nwq87")
 position = Vector2(2, -14)
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_i86i5")
-animation = &"walkup"
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(-1, -10)

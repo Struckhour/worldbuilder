@@ -44,7 +44,7 @@ func _ready() -> void:
 	add_to_group("enemies")
 	active = false
 	velocity = Vector2.ZERO
-
+	anim.play("default")
 	teleport_area = get_tree().get_first_node_in_group("mage_teleport_area")
 
 	if teleport_area:

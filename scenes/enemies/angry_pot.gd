@@ -33,7 +33,7 @@ var sprite_offset := -20
 
 func _ready() -> void:
 	add_to_group("enemies")
-
+	contact_hitbox.add_to_group("enemy_hitboxes")
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 
 	body_sprite.position.y = sprite_offset

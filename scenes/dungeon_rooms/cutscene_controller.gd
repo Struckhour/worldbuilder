@@ -31,8 +31,14 @@ func run_sequence() -> void:
 
 	var answer = await dialogue.display("./test_text.json", "pot_choice", [], true)
 
+	pot.process_mode = Node.PROCESS_MODE_ALWAYS
+	get_tree().paused = true
+
 	pot.play_intro_animation()
 	await pot.intro_animation_finished
+
+	get_tree().paused = false
+	pot.process_mode = Node.PROCESS_MODE_INHERIT
 
 	if answer == "lots":
 		await dialogue.display("./test_text.json", "pot_yes", [], true)
@@ -59,6 +65,7 @@ func _on_pot_shattered(spawn_position: Vector2) -> void:
 		return
 
 	await dialogue.display("./test_text.json", "wizard_0", [], true)
+	await dialogue.display("./test_text.json", "wizard_1", [], true)
 	
 	if wizard.has_method("start_fight"):
 		wizard.start_fight()

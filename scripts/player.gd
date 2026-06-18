@@ -27,6 +27,7 @@ var peace := 100.0
 func _ready():
 	add_to_group("player")
 	anim.animation_finished.connect(_on_animation_finished)
+	anim.play("default")
 	attack_shape.disabled = true
 	attack_hitbox.monitoring = true
 	attack_hitbox.monitorable = true
@@ -124,6 +125,7 @@ func take_damage(amount: int, knockback_from: Vector2 = global_position) -> void
 		die()
 
 func die() -> void:
+	anim.play("dead")
 	print("player dead")
 
 func direction_string_to_vector(direction: String) -> Vector2:

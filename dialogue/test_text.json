@@ -1,8 +1,15 @@
 {
 	"wizard_0": {
-		"text": "[speed=0.19]Heeeeey, you ruined my home![speed=0.05] [delay=1.0]Can't an old man rest miserably in his house without being hassled by little shit disturbers like you?[delay=1.5] Are you gonna pay for a new home? [delay=1.0][speed=0.045]Do you even know how much a vengeful, bouncy, clay pot house costs?[delay=2.0] [speed=0.01]Hm?[delay=2.0][speed=0.03] I doubt very much that you do! [delay=1.0]So how exactly do you expec---[delay=2.0]oh wait, I can just obliterate you, that's way more fun than what I was doing before! [delay=1.0]TO WAR, BABAY!!",
+		"text": "[speed=0.19]Heeeeey, you shattered my home![speed=0.05] [delay=1.0]Can't an old man rest miserably in his house without being hassled by little shit disturbers like you?[delay=1.5] Are you gonna pay for a new home? [delay=1.0][speed=0.045]Do you even know how much a vengeful, bouncy, clay pot house costs?[delay=2.0] [speed=0.01]Hm?[delay=2.0][speed=0.03] I doubt very much that you do!",
 		"name": "Angry Wizard",
-		"image_path": "clay_pot_solo.png",
+		"image_path": "wizard_thumbnail.png",
+		"image_coords": "0, 0",
+		"sound_path": "SYS_text.ogg"
+	},
+	"wizard_1": {
+		"text": "So how exactly do you expec---[delay=2.0]oh wait, I can just obliterate you, that's way more fun than what I was doing before! [delay=1.0]TO WAR, BABAY!!",
+		"name": "Angry Wizard",
+		"image_path": "wizard_thumbnail.png",
 		"image_coords": "0, 0",
 		"sound_path": "SYS_text.ogg"
 	},
