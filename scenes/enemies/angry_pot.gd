@@ -18,6 +18,7 @@ extends CharacterBody2D
 @onready var contact_hitbox: Area2D = $Hitbox
 @onready var contact_shape: CollisionShape2D = $Hitbox/CollisionShape2D
 
+signal shattered(spawn_position: Vector2)
 signal intro_animation_finished
 
 var boss_active := false
@@ -66,10 +67,16 @@ func choose_target() -> void:
 		target_position = global_position + Vector2.RIGHT.rotated(randf() * TAU) * 80.0
 
 func do_jump() -> void:
+	if dead:
+		return
+
 	jumping = true
 
 	body_sprite.play("bounce")
 	await body_sprite.animation_finished
+
+	if dead:
+		return
 
 	choose_target()
 	var destination := target_position
@@ -78,6 +85,9 @@ func do_jump() -> void:
 	var elapsed := 0.0
 
 	while elapsed < jump_duration:
+		if dead:
+			return
+
 		var t := elapsed / jump_duration
 
 		global_position = start.lerp(destination, t)
@@ -94,14 +104,25 @@ func do_jump() -> void:
 		elapsed += get_process_delta_time()
 		await get_tree().process_frame
 
+	if dead:
+		return
+
 	global_position = destination
 	body_sprite.position.y = sprite_offset
 	hurtbox.position.y = hitbox_offset
 	hitbox.position.y = hitbox_offset
 	shadow_sprite.scale = Vector2.ONE
 	shadow_sprite.modulate.a = 0.65
+
+	if dead:
+		return
+
 	body_sprite.play("smoke_burst")
 	await body_sprite.animation_finished
+
+	if dead:
+		return
+
 	jumping = false
 	
 func _on_hurtbox_area_entered(area: Area2D) -> void:
@@ -148,12 +169,26 @@ func show_hurt() -> void:
 	hurt = false
 
 func die() -> void:
+	if dead:
+		return
+
 	dead = true
+	boss_active = false
+	jumping = false
+
+	body_sprite.stop()
+	body_sprite.position.y = sprite_offset
+	hurtbox.position.y = hitbox_offset
+	hitbox.position.y = hitbox_offset
+
 	body_sprite.play("shatter")
 	await body_sprite.animation_finished
+
+	var wizard_spawn_position := global_position
+	shattered.emit(wizard_spawn_position)
+
 	shadow_sprite.visible = false
 	body_shape.set_deferred("disabled", true)
 	hurtbox_shape.set_deferred("disabled", true)
 	contact_shape.set_deferred("disabled", true)
-
 	#queue_free()

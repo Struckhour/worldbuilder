@@ -27,8 +27,12 @@ signal died
 @onready var poof_sfx: AudioStreamPlayer2D = $PoofAudio
 @onready var poof_reverse_sfx: AudioStreamPlayer2D = $PoofReverseAudio
 @onready var scurry_sfx: AudioStreamPlayer2D = $ScurryAudio
+
+var teleport_area: Area2D
+var teleport_rect: Rect2
 var teleporting := false
 
+var active := false
 var hurt := false
 var health := max_health
 var dead := false
@@ -38,11 +42,34 @@ func _ready() -> void:
 	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 	contact_hitbox.add_to_group("enemy_hitboxes")
 	add_to_group("enemies")
+	active = false
+	velocity = Vector2.ZERO
+
+	teleport_area = get_tree().get_first_node_in_group("mage_teleport_area")
+
+	if teleport_area:
+		var shape_node: CollisionShape2D = teleport_area.get_node("CollisionShape2D")
+		var rect_shape: RectangleShape2D = shape_node.shape
+
+		var size := rect_shape.size
+		var center := shape_node.global_position
+
+		teleport_rect = Rect2(center - size / 2.0, size)
+	else:
+		teleport_rect = Rect2(mage_area_top_left, mage_area_bottom_right - mage_area_top_left)
+
+func start_fight() -> void:
+	if active or dead:
+		return
+
+	active = true
 	pick_new_direction()
 	teleport_loop()
 
 func _physics_process(_delta: float) -> void:
-	if dead:
+	if dead or not active:
+		velocity = Vector2.ZERO
+		move_and_slide()
 		return
 
 	if hurt or teleporting:
@@ -63,7 +90,7 @@ func _physics_process(_delta: float) -> void:
 		pick_new_direction()
 
 func teleport_loop() -> void:
-	while not dead:
+	while active and not dead:
 		await get_tree().create_timer(teleport_interval).timeout
 
 		if dead:
@@ -120,8 +147,8 @@ func find_valid_teleport_position() -> Vector2:
 
 func random_play_area_position() -> Vector2:
 	return Vector2(
-		randf_range(mage_area_top_left.x, mage_area_bottom_right.x),
-		randf_range(mage_area_top_left.y, mage_area_bottom_right.y)
+		randf_range(teleport_rect.position.x, teleport_rect.position.x + teleport_rect.size.x),
+		randf_range(teleport_rect.position.y, teleport_rect.position.y + teleport_rect.size.y)
 	)
 
 func is_valid_teleport_position(pos: Vector2) -> bool:

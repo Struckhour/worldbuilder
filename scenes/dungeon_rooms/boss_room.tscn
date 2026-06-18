@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://byawinqf70qmf"]
+[gd_scene load_steps=29 format=4 uid="uid://byawinqf70qmf"]
 
 [ext_resource type="Script" uid="uid://dm0nqhfberxdq" path="res://scenes/dungeon_room_1.gd" id="1_0qyqx"]
 [ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_fukwd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b0p8b2p11rwl1" path="res://assets/yellow_dungeon_open_doors.png" id="7_k211x"]
 [ext_resource type="Script" uid="uid://erqc6q3m2uiy" path="res://scenes/dungeon_rooms/meet_pot_area.gd" id="8_0qyqx"]
 [ext_resource type="Script" uid="uid://wnod5vlj0ibi" path="res://scenes/dungeon_rooms/cutscene_controller.gd" id="8_fukwd"]
+[ext_resource type="PackedScene" uid="uid://bl6ddv7vky0v3" path="res://scenes/enemies/mage.tscn" id="9_l80ao"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wj4k"]
 texture = ExtResource("2_fukwd")
@@ -1024,6 +1025,9 @@ size = Vector2(723, 489)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qyqx"]
 size = Vector2(139, 108)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l80ao"]
+size = Vector2(418, 194)
+
 [node name="Dungeon" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_0qyqx")
@@ -1120,6 +1124,7 @@ shape = SubResource("RectangleShape2D_iy2xq")
 
 [node name="CutsceneController" type="Node2D" parent="."]
 script = ExtResource("8_fukwd")
+wizard_scene = ExtResource("9_l80ao")
 
 [node name="MeetPotArea" type="Area2D" parent="."]
 collision_mask = 2
@@ -1128,3 +1133,9 @@ script = ExtResource("8_0qyqx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeetPotArea"]
 position = Vector2(253.5, 22)
 shape = SubResource("RectangleShape2D_0qyqx")
+
+[node name="TeleportArea" type="Area2D" parent="." groups=["mage_teleport_area"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportArea"]
+position = Vector2(255, 45)
+shape = SubResource("RectangleShape2D_l80ao")
