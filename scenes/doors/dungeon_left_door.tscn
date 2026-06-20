@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://jr46sy1g3n2b"]
+[gd_scene load_steps=14 format=3 uid="uid://jr46sy1g3n2b"]
 
 [ext_resource type="Script" uid="uid://btujppdytoc6i" path="res://scenes/doors/dungeon_door.gd" id="1_5fqkl"]
 [ext_resource type="Texture2D" uid="uid://bgaq7li2geqoi" path="res://assets/yellow_dungeon.png" id="2_i2rnk"]
@@ -30,6 +30,9 @@ size = Vector2(16, 4.5)
 size = Vector2(16, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fqkl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qr5l"]
+size = Vector2(20, 24)
 
 [node name="DungeonWestDoor" type="Node2D" groups=["solid_world"]]
 y_sort_enabled = true
@@ -80,3 +83,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionArea"]
 position = Vector2(-11, -6)
 shape = SubResource("RectangleShape2D_5fqkl")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+collision_layer = 64
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(5, -6)
+shape = SubResource("RectangleShape2D_5qr5l")

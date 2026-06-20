@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
-@export var max_health := 3
+@export var max_health := 8
 @export var move_speed := 140.0
 @export var jump_height := 48.0
 @export var jump_duration := 0.5
 @export var wait_time := 0.05
-@export var contact_damage := 4
+@export var contact_damage := 8
 
 @onready var body_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var shadow_sprite: Sprite2D = $ShadowSprite
