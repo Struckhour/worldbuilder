@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cfiry3b46yeys" path="res://scenes/HUD.tscn" id="2_b1xwr"]
 [ext_resource type="PackedScene" uid="uid://b0ncrhqbhd6h0" path="res://scenes/player.tscn" id="2_kwti5"]
 [ext_resource type="PackedScene" uid="uid://drtta4s6rtd6p" path="res://dialogue.tscn" id="3_qa6f6"]
-[ext_resource type="PackedScene" uid="uid://byawinqf70qmf" path="res://scenes/dungeon_rooms/boss_room.tscn" id="4_b1xwr"]
+[ext_resource type="PackedScene" uid="uid://byawinqf70qmf" path="res://scenes/dungeon_rooms/boss_room.tscn" id="4_pq4w1"]
 [ext_resource type="Script" uid="uid://cyhpos3n2wn43" path="res://scenes/camera_2d.gd" id="4_wb1x7"]
 [ext_resource type="Script" uid="uid://bnr80dqb4qadf" path="res://scenes/game_manager.gd" id="7_pq4w1"]
 
@@ -18,11 +18,10 @@ process_mode = 3
 
 [node name="CurrentRoom" type="Node2D" parent="."]
 
-[node name="Dungeon" parent="CurrentRoom" instance=ExtResource("4_b1xwr")]
-position = Vector2(42.2035, 17.0341)
+[node name="Dungeon" parent="CurrentRoom" instance=ExtResource("4_pq4w1")]
 
 [node name="Player" parent="." instance=ExtResource("2_kwti5")]
-position = Vector2(256, 126)
+position = Vector2(183, 122)
 
 [node name="Camera2D" parent="Player" index="4"]
 enabled = false
@@ -57,5 +56,8 @@ color = Color(0.0509804, 0.027451, 0.0666667, 1)
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("7_pq4w1")
+
+[node name="PlayerHoldPoint" type="Marker2D" parent="."]
+position = Vector2(-1284, 33)
 
 [editable path="Player"]

@@ -55,6 +55,7 @@ func _ready() -> void:
 	peace_label.position = HUD_POS + HUD_PADDING + Vector2(MAX_HEARTS * HEART_SPACING + 8, -2)
 	peace_label.text = str(peace)
 	peace_label.add_theme_color_override("font_color", Color.WHITE)
+	peace_label.visible = false
 	add_child(peace_label)
 
 	update_hearts(current_health)

@@ -15,7 +15,7 @@ var attacking := false
 var attack_direction := "down"
 const ATTACK_OFFSET := 10
 const FIREBLAST_SCENE := preload("res://scenes/fireblast.tscn")
-const FIREBALL_PEACE_COST := 5
+const FIREBALL_PEACE_COST := 0
 const SWORD_PEACE_COST := 5
 const MIN_PEACE_TO_SHOOT := 75
 const PEACE_REGEN_PER_SECOND := 5.0
@@ -55,6 +55,10 @@ func _physics_process(delta):
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy_hitboxes"):
+		print("PLAYER HIT BY: ", area.name)
+		print("area global: ", area.global_position)
+		print("player global: ", global_position)
+		print("distance: ", area.global_position.distance_to(global_position))
 		var enemy := area.owner
 
 		if enemy:

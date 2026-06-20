@@ -98,6 +98,7 @@ func display(json, id, vars = [], pause_game := true):
 	# reset dialogue box visibility
 	visible = true
 	faceimage.visible = false
+	faceimage.texture = null
 	namebox.visible = false
 	
 	var print_speed = default_print_speed
@@ -124,8 +125,7 @@ func display(json, id, vars = [], pause_game := true):
 		namebox.visible = true
 	if "image_path" in json[id]:
 		image = json[id]["image_path"]
-		faceimage.visible = true
-	if "image_coords" in json[id]:
+	if "image_coords" in json[id] and json[id]["image_coords"] != "":
 		imagecoords = json[id]["image_coords"].split(", ")
 	
 	faceimage.region_rect.position.x = int(imagecoords[0]) * 128
@@ -135,9 +135,16 @@ func display(json, id, vars = [], pause_game := true):
 	var tag = []
 	
 	# set name, face texture, and print sound
-	if image[0] + image[1] == "./":
-		image = default_face_path + "".join(image.split().slice(2, image.length()))
-	faceimage.texture = load(image)
+# set name, face texture, and print sound
+	if image != "":
+		if image.begins_with("./"):
+			image = default_face_path + image.substr(2)
+
+		faceimage.texture = load(image)
+		faceimage.visible = true
+	else:
+		faceimage.texture = null
+		faceimage.visible = false
 	
 	if sound[0] + sound[1] == "./":
 		sound = default_sound_path + "".join(sound.split().slice(2, sound.length()))

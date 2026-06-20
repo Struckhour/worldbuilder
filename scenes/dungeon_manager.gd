@@ -4,7 +4,7 @@ extends Node2D
 @onready var player: CharacterBody2D = $Player
 @onready var camera: Camera2D = $Camera2D
 @onready var fade_layer: CanvasLayer = $FadeLayer
-
+@onready var player_hold_point: Marker2D = $PlayerHoldPoint
 var current_room: Node2D
 var transitioning := false
 
@@ -25,19 +25,40 @@ func change_room(target_room_path: String, target_spawn_name: String) -> void:
 
 	await fade_out()
 
+	player.global_position = player_hold_point.global_position
+	await get_tree().physics_frame
+
 	if current_room:
 		current_room.queue_free()
+		current_room = null
+		await get_tree().process_frame
 
 	var room_scene := load(target_room_path) as PackedScene
+
+	if room_scene == null:
+		push_error("Could not load room: " + target_room_path)
+		freeze_player(false)
+		transitioning = false
+		return
+
 	current_room = room_scene.instantiate()
 	current_room_holder.add_child(current_room)
 
-	await get_tree().process_frame
+	var spawn_path := "SpawnPoints/" + target_spawn_name
 
-	var spawn := current_room.get_node("SpawnPoints/" + target_spawn_name) as Marker2D
+	if not current_room.has_node(spawn_path):
+		push_error("Missing spawn point: " + spawn_path)
+		freeze_player(false)
+		transitioning = false
+		return
+
+	var spawn := current_room.get_node(spawn_path) as Marker2D
 	player.global_position = spawn.global_position
+
 	open_spawn_door(target_spawn_name)
 	update_camera_bounds(current_room)
+
+	await get_tree().physics_frame
 
 	await fade_in()
 

@@ -1,11 +1,13 @@
-[gd_scene load_steps=30 format=4 uid="uid://cwwjqkedf7s3e"]
+[gd_scene load_steps=32 format=4 uid="uid://cwwjqkedf7s3e"]
 
 [ext_resource type="Script" uid="uid://dm0nqhfberxdq" path="res://scenes/dungeon_room_1.gd" id="1_18m03"]
 [ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_as0if"]
 [ext_resource type="Texture2D" uid="uid://bgaq7li2geqoi" path="res://assets/yellow_dungeon.png" id="3_1ge2r"]
 [ext_resource type="PackedScene" uid="uid://c63gg43r3b5nd" path="res://scenes/doors/dungeon_right_door.tscn" id="5_5i6ce"]
 [ext_resource type="PackedScene" uid="uid://ue3vufjru33x" path="res://scenes/doors/dungeon_bottom_door.tscn" id="6_5na38"]
+[ext_resource type="Script" uid="uid://bwt1g625pjwf2" path="res://scenes/dungeon_rooms/fire_point.gd" id="7_18m03"]
 [ext_resource type="Texture2D" uid="uid://b0p8b2p11rwl1" path="res://assets/yellow_dungeon_open_doors.png" id="7_21s1s"]
+[ext_resource type="PackedScene" uid="uid://cb7i0q1kuc33j" path="res://scenes/enemies/fire_projectile.tscn" id="8_as0if"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wj4k"]
 texture = ExtResource("2_as0if")
@@ -1160,3 +1162,43 @@ z_index = -10
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds"]
 position = Vector2(263.5, 68.5)
 shape = SubResource("RectangleShape2D_iy2xq")
+
+[node name="FirePoint1" type="Marker2D" parent="."]
+position = Vector2(45, -45)
+script = ExtResource("7_18m03")
+fire_projectile_scene = ExtResource("8_as0if")
+
+[node name="FirePoint3" type="Marker2D" parent="."]
+position = Vector2(174, -49)
+script = ExtResource("7_18m03")
+fire_projectile_scene = ExtResource("8_as0if")
+
+[node name="FirePoint2" type="Marker2D" parent="."]
+position = Vector2(109, -45)
+script = ExtResource("7_18m03")
+fire_projectile_scene = ExtResource("8_as0if")
+
+[node name="FirePoint4" type="Marker2D" parent="."]
+position = Vector2(335, -46)
+script = ExtResource("7_18m03")
+fire_projectile_scene = ExtResource("8_as0if")
+
+[node name="FirePoint5" type="Marker2D" parent="."]
+position = Vector2(398, -46)
+script = ExtResource("7_18m03")
+fire_projectile_scene = ExtResource("8_as0if")
+
+[node name="FirePoint6" type="Marker2D" parent="."]
+position = Vector2(461, -47)
+script = ExtResource("7_18m03")
+fire_projectile_scene = ExtResource("8_as0if")
+
+[node name="FirePoint7" type="Marker2D" parent="."]
+position = Vector2(250, 22)
+script = ExtResource("7_18m03")
+fire_projectile_scene = ExtResource("8_as0if")
+
+[node name="FirePoint8" type="Marker2D" parent="."]
+position = Vector2(260, 22)
+script = ExtResource("7_18m03")
+fire_projectile_scene = ExtResource("8_as0if")

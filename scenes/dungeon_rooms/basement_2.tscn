@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://bjnfgrpooh1l8"]
+[gd_scene load_steps=23 format=4 uid="uid://bjnfgrpooh1l8"]
 
 [ext_resource type="Script" uid="uid://dm0nqhfberxdq" path="res://scenes/dungeon_room_1.gd" id="1_n6v1o"]
 [ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_t3w3y"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://b0p8b2p11rwl1" path="res://assets/yellow_dungeon_open_doors.png" id="6_sobu5"]
 [ext_resource type="PackedScene" uid="uid://jr46sy1g3n2b" path="res://scenes/doors/dungeon_left_door.tscn" id="7_y16y1"]
 [ext_resource type="PackedScene" uid="uid://bocnryrc5al0v" path="res://scenes/interactives/book.tscn" id="8_toryg"]
-[ext_resource type="Texture2D" uid="uid://cfjahkwk7ha5q" path="res://assets/gfx/objects.png" id="9_rc8i8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wj4k"]
 texture = ExtResource("2_t3w3y")
@@ -1012,10 +1011,6 @@ size = Vector2(65, 90)
 atlas = ExtResource("6_sobu5")
 region = Rect2(112, 112, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tkjml"]
-atlas = ExtResource("9_rc8i8")
-region = Rect2(245, 3, 12, 12)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ym3j"]
 size = Vector2(644, 405)
 
@@ -1030,7 +1025,7 @@ tile_set = SubResource("TileSet_fvacq")
 
 [node name="WallLayer" type="TileMapLayer" parent="." groups=["solid_world"]]
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAAAAAQAAQACAAEAAAAAAAUAAQADAAEAAAAAAAEAAQACAAEAAAAAAAAAAQADAAAAAAABAAAAAQABAAIAAAABAAUAAQABAAAAAAACAAAAAQABAAIAAAACAAUAAQABAAAAAAADAAAAAQAEAAAAAAADAAEAAQAAAAEAAAADAAIAAQAJAAgAAAADAAUAAQABAAAAAAAEAAAAAQADAAAAAAAEAAEAAQACAAEAAAAEAAIAAQAKAAgAAAAEAAUAAQABAAAAAAAFAAAAAQABAAIAAAAFAAUAAQABAAAAAAAGAAAAAQAFAAEAAAAGAAUAAQABAAAAAAAJAAAAAQAFAAEAAAAJAAUAAQABAAAAAAAKAAAAAQABAAIAAAAKAAIAAQAQAAoAAAAKAAUAAQABAAAAAAALAAAAAQAFAAEAAAALAAUAAQABAAAAAAAMAAAAAQABAAIAAAAMAAUAAQABAAAAAAANAAAAAQAFAAEAAAANAAEAAQAQAAYAAAANAAIAAQAQAAcAAAANAAMAAQAQAAgAAAANAAUAAQABAAAAAAAOAAAAAQABAAIAAAAOAAEAAQARAAYAAAAOAAIAAQARAAcAAAAOAAMAAQARAAgAAAAOAAUAAQABAAAAAAAPAAAAAQAEAAAAAAAPAAEAAQAAAAEAAAAPAAIAAQADAAMAAAAPAAMAAQADAAMAAAAPAAQAAQAAAAEAAAAPAAUAAQAEAAEAAAAQAAMAAAAEAAMAAAAQAAIAAAAEAAMAAAAJAP//AAAFAAAAAAAGAP//AAAFAAAAAAALAP//AAAFAAAAAAANAP//AAAFAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAQAAQACAAEAAAAAAAUAAQADAAEAAAAAAAEAAQACAAEAAAAAAAAAAQADAAAAAAABAAAAAQABAAIAAAABAAUAAQABAAAAAAACAAAAAQABAAIAAAACAAUAAQABAAAAAAADAAAAAQAEAAAAAAADAAEAAQAAAAEAAAADAAIAAQAJAAgAAAADAAUAAQABAAAAAAAEAAAAAQADAAAAAAAEAAEAAQACAAEAAAAEAAIAAQAKAAgAAAAEAAUAAQABAAAAAAAFAAAAAQABAAIAAAAFAAUAAQABAAAAAAAGAAAAAQAFAAEAAAAGAAUAAQABAAAAAAAJAAAAAQAFAAEAAAAJAAUAAQABAAAAAAAKAAAAAQABAAIAAAAKAAUAAQABAAAAAAALAAAAAQAFAAEAAAALAAUAAQABAAAAAAAMAAAAAQABAAIAAAAMAAUAAQABAAAAAAANAAAAAQAFAAEAAAANAAEAAQAQAAYAAAANAAIAAQAQAAcAAAANAAMAAQAQAAgAAAANAAUAAQABAAAAAAAOAAAAAQABAAIAAAAOAAEAAQARAAYAAAAOAAIAAQARAAcAAAAOAAMAAQARAAgAAAAOAAUAAQABAAAAAAAPAAAAAQAEAAAAAAAPAAEAAQAAAAEAAAAPAAIAAQADAAMAAAAPAAMAAQADAAMAAAAPAAQAAQAAAAEAAAAPAAUAAQAEAAEAAAAQAAMAAAAEAAMAAAAQAAIAAAAEAAMAAAAJAP//AAAFAAAAAAAGAP//AAAFAAAAAAALAP//AAAFAAAAAAANAP//AAAFAAAAAAA=")
 tile_set = SubResource("TileSet_fpimf")
 
 [node name="WallCollision" type="Node2D" parent="."]
@@ -1086,6 +1081,7 @@ shape = SubResource("RectangleShape2D_x0nqh")
 [node name="DoorNorth" parent="." instance=ExtResource("4_mhvxf")]
 position = Vector2(256, 32)
 scale = Vector2(2, 2)
+target_room_path = "uid://byawinqf70qmf"
 door_id = "b2_to_l1"
 
 [node name="DoorSouth" parent="." instance=ExtResource("5_kn7l0")]
@@ -1106,7 +1102,6 @@ door_id = "b2_to_b3"
 [node name="Book" parent="." instance=ExtResource("8_toryg")]
 position = Vector2(290, 70)
 scale = Vector2(2, 2)
-portrait_texture = SubResource("AtlasTexture_tkjml")
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 

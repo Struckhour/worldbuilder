@@ -127,6 +127,11 @@ func do_jump() -> void:
 	
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	print("Pot hurtbox touched by area: ", area.name, " groups: ", area.get_groups())
+	print("POT HURTBOX touched: ", area.name)
+	print("area global: ", area.global_position)
+	print("pot global: ", global_position)
+	print("distance: ", area.global_position.distance_to(global_position))
+	print("area owner: ", area.owner)
 	if dead:
 		return
 

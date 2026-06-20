@@ -1088,13 +1088,14 @@ shape = SubResource("RectangleShape2D_xa4cf")
 position = Vector2(256, -64)
 scale = Vector2(2, 2)
 target_room_path = "uid://caj0qkr8bdgll"
+door_id = "l1_to_end"
 
 [node name="DoorSouth" parent="." instance=ExtResource("6_o81tf")]
 position = Vector2(256, 204)
 scale = Vector2(2, 2)
 open_texture = SubResource("AtlasTexture_fvacq")
-target_room_path = "uid://caj0qkr8bdgll"
 target_spawn_name = "FromNorth"
+door_id = "b2_to_l1"
 
 [node name="AngryPot" parent="." instance=ExtResource("7_86j0j")]
 z_index = 10
@@ -1108,12 +1109,6 @@ position = Vector2(256, -70)
 
 [node name="FromSouth" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(255, 174)
-
-[node name="FromWest" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(24, 97)
-
-[node name="FromEast" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(487, 97)
 
 [node name="CameraBounds" type="Area2D" parent="."]
 z_index = -10
