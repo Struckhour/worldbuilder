@@ -5,6 +5,8 @@ extends Node2D
 @onready var camera: Camera2D = $Camera2D
 @onready var fade_layer: CanvasLayer = $FadeLayer
 @onready var player_hold_point: Marker2D = $PlayerHoldPoint
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
+@export var default_music: AudioStream
 
 var current_room: Node2D
 var transitioning := false
@@ -20,7 +22,8 @@ func _ready() -> void:
 	reparent_player_to(current_room)
 
 	update_camera_bounds(current_room)
-
+	if default_music:
+		play_music(default_music)
 
 func change_room(target_room_path: String, target_spawn_name: String) -> void:
 	if transitioning:
@@ -131,3 +134,15 @@ func fade_in() -> void:
 	var tween := create_tween()
 	tween.tween_property(color_rect, "modulate:a", 0.0, 0.25)
 	await tween.finished
+
+
+
+func play_music(song: AudioStream) -> void:
+	if music_player.stream == song and music_player.playing:
+		return
+
+	music_player.stream = song
+	music_player.play()
+
+func stop_music() -> void:
+	music_player.stop()

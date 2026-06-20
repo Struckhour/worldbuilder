@@ -13,6 +13,10 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.name != "Player":
 		return
+	var dungeon_manager = get_tree().get_first_node_in_group("dungeon_manager")
+
+	if dungeon_manager and dungeon_manager.has_method("stop_music"):
+		dungeon_manager.stop_music()
 
 	if not audio.playing:
 		audio.play()

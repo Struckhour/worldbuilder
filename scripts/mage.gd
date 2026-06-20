@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 signal died
-@export var max_health := 1
+@export var max_health := 5
 @export var speed := 150.0
 @export var contact_damage := 4
 @export var death_opens_door_id := ""

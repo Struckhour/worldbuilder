@@ -1124,6 +1124,7 @@ shape = SubResource("RectangleShape2D_iy2xq")
 [node name="CutsceneController" type="Node2D" parent="."]
 script = ExtResource("8_fukwd")
 wizard_scene = ExtResource("9_l80ao")
+wizard_music = ExtResource("11_pqyk4")
 
 [node name="MeetPotArea" type="Area2D" parent="."]
 collision_mask = 2
@@ -1138,7 +1139,3 @@ shape = SubResource("RectangleShape2D_0qyqx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportArea"]
 position = Vector2(255, 45)
 shape = SubResource("RectangleShape2D_l80ao")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-stream = ExtResource("11_pqyk4")

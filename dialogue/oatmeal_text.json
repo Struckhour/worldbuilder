@@ -1,6 +1,6 @@
 {
 	"oatmeal_0": {
-		"text": "A bowl of oatmeal. Room temperature. A little brown. It does not look appetizing.",
+		"text": "A bowl of oatmeal. Room temperature. A little brown. It does not look appetizing. Refusing to eat it fills you with the knowledge that left arrow is 'attack', up arrow is 'interact', and right arrow is 'spin'.",
 		"image_coords": "0, 0",
 		"sound_path": "SYS_text.ogg"
 	},
