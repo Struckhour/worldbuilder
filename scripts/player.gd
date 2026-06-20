@@ -102,7 +102,7 @@ var current_health := max_health
 var invincible := false
 
 func take_damage(amount: int, knockback_from: Vector2 = global_position) -> void:
-	if invincible:
+	if invincible or spinning:
 		return
 
 	current_health = max(current_health - amount, 0)

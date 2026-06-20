@@ -2,7 +2,7 @@ extends Area2D
 
 @export var speed := 180.0
 @export var lifetime := 3.0
-@export var contact_damage := 1
+@export var contact_damage := 2
 @export var rotation_speed := 8.0
 
 var direction := Vector2.RIGHT

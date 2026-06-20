@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=4 uid="uid://bkn7ejbw55oig"]
+[gd_scene load_steps=25 format=4 uid="uid://bkn7ejbw55oig"]
 
 [ext_resource type="Script" uid="uid://dm0nqhfberxdq" path="res://scenes/dungeon_room_1.gd" id="1_3e37m"]
 [ext_resource type="Texture2D" uid="uid://da204m7h1w06e" path="res://assets/dungeon_tiles.png" id="2_8lpsj"]
 [ext_resource type="Texture2D" uid="uid://bgaq7li2geqoi" path="res://assets/yellow_dungeon.png" id="3_arq28"]
 [ext_resource type="PackedScene" uid="uid://bkd0wdhpdfq47" path="res://scenes/doors/dungeon_top_door.tscn" id="4_4jvjm"]
+[ext_resource type="PackedScene" uid="uid://bsbgdj7ltdvax" path="res://scenes/pickups/dungeon_key.tscn" id="5_qxuna"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wj4k"]
 texture = ExtResource("2_8lpsj")
@@ -1140,3 +1141,6 @@ z_index = -10
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds"]
 position = Vector2(244, 107)
 shape = SubResource("RectangleShape2D_p0wk0")
+
+[node name="DungeonKey" parent="." instance=ExtResource("5_qxuna")]
+position = Vector2(97, 263)

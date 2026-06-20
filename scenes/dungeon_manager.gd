@@ -5,6 +5,7 @@ extends Node2D
 @onready var camera: Camera2D = $Camera2D
 @onready var fade_layer: CanvasLayer = $FadeLayer
 @onready var player_hold_point: Marker2D = $PlayerHoldPoint
+
 var current_room: Node2D
 var transitioning := false
 
@@ -14,7 +15,12 @@ func _ready() -> void:
 	fade_layer.get_node("ColorRect").modulate.a = 0.0
 
 	current_room = current_room_holder.get_child(0)
+
+	# Put player inside starting room too.
+	reparent_player_to(current_room)
+
 	update_camera_bounds(current_room)
+
 
 func change_room(target_room_path: String, target_spawn_name: String) -> void:
 	if transitioning:
@@ -25,6 +31,8 @@ func change_room(target_room_path: String, target_spawn_name: String) -> void:
 
 	await fade_out()
 
+	# Move player somewhere safe before freeing old room.
+	reparent_player_to(self)
 	player.global_position = player_hold_point.global_position
 	await get_tree().physics_frame
 
@@ -44,6 +52,9 @@ func change_room(target_room_path: String, target_spawn_name: String) -> void:
 	current_room = room_scene.instantiate()
 	current_room_holder.add_child(current_room)
 
+	# Put player inside the new room.
+	reparent_player_to(current_room)
+
 	var spawn_path := "SpawnPoints/" + target_spawn_name
 
 	if not current_room.has_node(spawn_path):
@@ -59,11 +70,21 @@ func change_room(target_room_path: String, target_spawn_name: String) -> void:
 	update_camera_bounds(current_room)
 
 	await get_tree().physics_frame
-
 	await fade_in()
 
 	freeze_player(false)
 	transitioning = false
+
+
+func reparent_player_to(new_parent: Node) -> void:
+	var old_global_position := player.global_position
+
+	if player.get_parent():
+		player.get_parent().remove_child(player)
+
+	new_parent.add_child(player)
+	player.global_position = old_global_position
+
 
 func open_spawn_door(spawn_name: String) -> void:
 	var door_name := spawn_name.replace("From", "Door")
@@ -80,7 +101,6 @@ func open_spawn_door(spawn_name: String) -> void:
 		door.open()
 
 
-
 func update_camera_bounds(room: Node2D) -> void:
 	var bounds: Rect2 = room.get_camera_bounds()
 
@@ -89,12 +109,6 @@ func update_camera_bounds(room: Node2D) -> void:
 	camera.limit_right = int(bounds.end.x)
 	camera.limit_bottom = int(bounds.end.y)
 
-	print("Camera bounds: ",
-		camera.limit_left, ", ",
-		camera.limit_top, ", ",
-		camera.limit_right, ", ",
-		camera.limit_bottom
-	)
 
 func freeze_player(value: bool) -> void:
 	player.set_physics_process(not value)
@@ -102,12 +116,14 @@ func freeze_player(value: bool) -> void:
 	if value:
 		player.velocity = Vector2.ZERO
 
+
 func fade_out() -> void:
 	var color_rect: ColorRect = fade_layer.get_node("ColorRect")
 
 	var tween := create_tween()
 	tween.tween_property(color_rect, "modulate:a", 1.0, 0.25)
 	await tween.finished
+
 
 func fade_in() -> void:
 	var color_rect: ColorRect = fade_layer.get_node("ColorRect")

@@ -3,13 +3,15 @@ extends Node2D
 @export var wizard_scene: PackedScene
 @onready var pot = $"../AngryPot"
 
+@onready var audio: AudioStreamPlayer = $"../AudioStreamPlayer"
 var running := false
 var wizard_spawned := false
 
 
 func _ready() -> void:
 	pot.shattered.connect(_on_pot_shattered)
-
+	audio.process_mode = Node.PROCESS_MODE_ALWAYS
+	audio.stop()
 
 func start() -> void:
 	if running:
@@ -21,6 +23,7 @@ func start() -> void:
 
 
 func run_sequence() -> void:
+	set_door_state_by_id("b2_to_l1", "locked")
 	var dialogue = get_tree().get_first_node_in_group("dialogue_box")
 
 	if dialogue == null:
@@ -47,6 +50,13 @@ func run_sequence() -> void:
 
 	pot.start_fight()
 
+func _on_wizard_died() -> void:
+	var tween := create_tween()
+	tween.tween_property(audio, "volume_db", -40.0, 1.0)
+	await tween.finished
+
+	audio.stop()
+	audio.volume_db = 0.0
 
 func _on_pot_shattered(spawn_position: Vector2) -> void:
 	if wizard_spawned:
@@ -55,9 +65,11 @@ func _on_pot_shattered(spawn_position: Vector2) -> void:
 	wizard_spawned = true
 
 	var wizard = wizard_scene.instantiate()
+	wizard.died.connect(_on_wizard_died)
 	get_parent().add_child(wizard)
 	wizard.global_position = spawn_position + Vector2(0, -25)
 	wizard.scale = Vector2(1.5, 1.5)
+	wizard.death_opens_door_id = "l1_to_end"
 	var dialogue = get_tree().get_first_node_in_group("dialogue_box")
 
 	if dialogue == null:
@@ -68,4 +80,25 @@ func _on_pot_shattered(spawn_position: Vector2) -> void:
 	await dialogue.display("./test_text.json", "wizard_1", [], true)
 	
 	if wizard.has_method("start_fight"):
+		if audio.stream == null:
+			push_warning("AudioStreamPlayer still has no stream. Check the sibling AudioStreamPlayer node.")
+		else:
+			audio.play()
+
 		wizard.start_fight()
+
+func set_door_state_by_id(target_id: String, state: String) -> void:
+	var doors := get_tree().get_nodes_in_group("doors")
+
+	for door in doors:
+		if door.door_id != target_id:
+			continue
+
+		if door.has_method("set_state"):
+			door.set_state(state)
+		else:
+			door.default_state = state
+
+		return
+
+	push_warning("No door found with id: " + target_id)

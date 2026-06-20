@@ -20,6 +20,7 @@ var is_locked := false
 var armed := false
 
 func _ready() -> void:
+	add_to_group("doors")
 	interact_area.add_to_group("interactables")
 	transition_area.body_entered.connect(_on_body_entered)
 

@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 signal died
-@export var max_health := 3
+@export var max_health := 1
 @export var speed := 150.0
 @export var contact_damage := 4
+@export var death_opens_door_id := ""
 
 @export var enemy_projectile_scene: PackedScene
 @export var projectile_speed := 280.0
@@ -236,6 +237,9 @@ func show_hurt() -> void:
 func die() -> void:
 	dead = true
 	died.emit()
+
+	open_door_by_id()
+
 	body_shape.set_deferred("disabled", true)
 	hurtbox_shape.set_deferred("disabled", true)
 	contact_shape.set_deferred("disabled", true)
@@ -267,3 +271,23 @@ func shoot_projectile_burst() -> void:
 		projectile.lifetime = projectile_lifetime
 
 		get_tree().current_scene.add_child(projectile)
+
+
+func open_door_by_id() -> void:
+	if death_opens_door_id == "":
+		return
+
+	var doors := get_tree().get_nodes_in_group("doors")
+
+	for door in doors:
+		if not "door_id" in door:
+			continue
+
+		if door.door_id == death_opens_door_id:
+			if door.has_method("force_open"):
+				door.force_open()
+			elif door.has_method("open"):
+				door.open()
+			return
+
+	push_warning("No door found with door_id: " + death_opens_door_id)
